@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.ESTSTAT">
+<Description>
+Признак владения</Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>63958,69797.146308</TimeCreated>
+
+<Property name="NAME">
+<Description>
+Наименование</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="SHORTNAME">
+<Description>
+Наименование</Description>
+<Type>%String</Type>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship ESTSTATID As Data.HOUSE [ Cardinality = parent, Inverse = ESTSTATUS ];
+
+]]></Content>
+</UDLText>
+
+<Storage name="Default">
+<Description>
+Статус актуальности ФИАС</Description>
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.ESTSTATD</DataLocation>
+<DefaultData>ESTSTATDefaultData</DefaultData>
+<IdLocation>^Data.ESTSTATD</IdLocation>
+<IndexLocation>^Data.ESTSTATI</IndexLocation>
+<StreamLocation>^Data.ESTSTATS</StreamLocation>
+<Data name="ESTSTATDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>NAME</Value>
+</Value>
+<Value name="3">
+<Value>SHORTNAME</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
