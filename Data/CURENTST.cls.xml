@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.CURENTST">
+<Description>
+Статус актуальности КЛАДР 4.0</Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>63958,69796.931734</TimeCreated>
+
+<Property name="NAME">
+<Description>
+Наименование</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="CURENTSTID">
+<Description>
+Статус актуальности ФИАС</Description>
+<Type>Data.ADDROBJ</Type>
+<Cardinality>parent</Cardinality>
+<Inverse>CURRSTATUS</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.CURENTSTD</DataLocation>
+<DefaultData>CURENTSTDefaultData</DefaultData>
+<IdLocation>^Data.CURENTSTD</IdLocation>
+<IndexLocation>^Data.CURENTSTI</IndexLocation>
+<StreamLocation>^Data.CURENTSTS</StreamLocation>
+<Data name="CURENTSTDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>NAME</Value>
+</Value>
+<Value name="3">
+<Value>CURENTSTID</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
