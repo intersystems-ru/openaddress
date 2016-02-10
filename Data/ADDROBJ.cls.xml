@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.ADDROBJ">
+<Description>
+Классификатор адресообразующих элементов</Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>63958,64769.055735</TimeCreated>
+
+<Property name="AOGUID">
+<Description>
+Глобальный уникальный идентификатор адресного объекта</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="FORMALNAME">
+<Description>
+Формализованное наименование</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="REGIONCODE">
+<Description>
+Код региона</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="AUTOCODE">
+<Description>
+Код автономии</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="AREACODE">
+<Description>
+Код района</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="CITYCODE">
+<Description>
+Код города</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="CTARCODE">
+<Description>
+Код внутригородского района</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="PLACECODE">
+<Description>
+Код населенного пункта</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="STREETCODE">
+<Description>
+Код улицы</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="EXTRCODE">
+<Description>
+Код дополнительного адресообразующего элемента</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="SEXTCODE">
+<Description>
+Код подчиненного дополнительного адресообразующего элемента</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="OFFNAME">
+<Description>
+Официальное наименование</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="POSTALCODE">
+<Description>
+Почтовый индекс</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="IFNSFL">
+<Description>
+Код ИФНС ФЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="TERRIFNSFL">
+<Description>
+Код территориального участка ИФНС ФЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="IFNSUL">
+<Description>
+Код ИФНС ЮЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="TERRIFNSUL">
+<Description>
+Код территориального участка ИФНС ЮЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="OKATO">
+<Description>
+OKATO</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="OKTMO">
+<Description>
+OKTMO</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="UPDATEDATE">
+<Description>
+Дата  внесения записи</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="SHORTNAME">
+<Description>
+Краткое наименование типа объекта</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="AOLEVEL">
+<Description>
+Уровень адресного объекта</Description>
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="PARENTGUID">
+<Description>
+Идентификатор объекта родительского объекта</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="AOID">
+<Description>
+Уникальный идентификатор записи. Ключевое поле.</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="PREVID">
+<Description>
+Идентификатор записи связывания с предыдушей исторической записью</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="NEXTID">
+<Description>
+Идентификатор записи  связывания с последующей исторической записью</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="CODE">
+<Description>
+Код адресного объекта одной строкой с признаком актуальности из КЛАДР 4.0.</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="PLAINCODE">
+<Description>
+Код адресного объекта из КЛАДР 4.0 одной строкой без признака актуальности (последних двух цифр)</Description>
+<Type>%String</Type>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Статус актуальности адресного объекта ФИАС. Актуальный адрес на текущую дату. Обычно последняя запись об адресном объекте.
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship ACTSTATUS As Data. 
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Статус центра
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship CENTSTATUS As Data.
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Статус действия над записью – причина появления записи
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship OPERSTATUS As Data.
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Статус актуальности КЛАДР 4 (последние две цифры в коде)
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship CURRSTATUS As Data.
+
+]]></Content>
+</UDLText>
+
+<Property name="STARTDATE">
+<Description>
+Начало действия записи</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="ENDDATE">
+<Description>
+Окончание действия записи</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="NORMDOC">
+<Description>
+Внешний ключ на нормативный документ</Description>
+<Type>%String</Type>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Признак действующего адресного объекта
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship LIVESTATUS As Data.
+
+]]></Content>
+</UDLText>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.ADDROBJD</DataLocation>
+<DefaultData>ADDROBJDefaultData</DefaultData>
+<IdLocation>^Data.ADDROBJD</IdLocation>
+<IndexLocation>^Data.ADDROBJI</IndexLocation>
+<StreamLocation>^Data.ADDROBJS</StreamLocation>
+<Data name="ADDROBJDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>AOGUID</Value>
+</Value>
+<Value name="3">
+<Value>FORMALNAME</Value>
+</Value>
+<Value name="4">
+<Value>REGIONCODE</Value>
+</Value>
+<Value name="5">
+<Value>AUTOCODE</Value>
+</Value>
+<Value name="6">
+<Value>AREACODE</Value>
+</Value>
+<Value name="7">
+<Value>CITYCODE</Value>
+</Value>
+<Value name="8">
+<Value>CTARCODE</Value>
+</Value>
+<Value name="9">
+<Value>PLACECODE</Value>
+</Value>
+<Value name="10">
+<Value>STREETCODE</Value>
+</Value>
+<Value name="11">
+<Value>EXTRCODE</Value>
+</Value>
+<Value name="12">
+<Value>SEXTCODE</Value>
+</Value>
+<Value name="13">
+<Value>OFFNAME</Value>
+</Value>
+<Value name="14">
+<Value>POSTALCODE</Value>
+</Value>
+<Value name="15">
+<Value>IFNSFL</Value>
+</Value>
+<Value name="16">
+<Value>TERRIFNSFL</Value>
+</Value>
+<Value name="17">
+<Value>IFNSUL</Value>
+</Value>
+<Value name="18">
+<Value>TERRIFNSUL</Value>
+</Value>
+<Value name="19">
+<Value>OKATO</Value>
+</Value>
+<Value name="20">
+<Value>OKTMO</Value>
+</Value>
+<Value name="21">
+<Value>UPDATEDATE</Value>
+</Value>
+<Value name="22">
+<Value>SHORTNAME</Value>
+</Value>
+<Value name="23">
+<Value>AOLEVEL</Value>
+</Value>
+<Value name="24">
+<Value>PARENTGUID</Value>
+</Value>
+<Value name="25">
+<Value>AOID</Value>
+</Value>
+<Value name="26">
+<Value>PREVID</Value>
+</Value>
+<Value name="27">
+<Value>NEXTID</Value>
+</Value>
+<Value name="28">
+<Value>CODE</Value>
+</Value>
+<Value name="29">
+<Value>PLAINCODE</Value>
+</Value>
+<Value name="30">
+<Value>STARTDATE</Value>
+</Value>
+<Value name="31">
+<Value>ENDDATE</Value>
+</Value>
+<Value name="32">
+<Value>NORMDOC</Value>
+</Value>
+<Value name="33">
+<Value>LIVESTATUS</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
