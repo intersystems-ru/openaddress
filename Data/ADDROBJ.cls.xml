@@ -187,19 +187,14 @@ OKTMO</Description>
 <Type>%String</Type>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Статус актуальности адресного объекта ФИАС. Актуальный адрес на текущую дату. Обычно последняя запись об адресном объекте.
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// Relationship ACTSTATUS As Data. 
-
-]]></Content>
-</UDLText>
+<Property name="ACTSTATUS">
+<Description>
+Статус актуальности адресного объекта ФИАС. Актуальный адрес на текущую дату. Обычно последняя запись об адресном объекте.</Description>
+<Type>Data.ACTSTAT</Type>
+<Cardinality>many</Cardinality>
+<Inverse>ACTSTATID</Inverse>
+<Relationship>1</Relationship>
+</Property>
 
 <UDLText name="T">
 <Content><![CDATA[

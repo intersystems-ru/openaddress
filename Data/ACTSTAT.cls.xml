@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.ACTSTAT">
+<Description>
+Статус актуальности ФИАС</Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>63958,65985.281924</TimeCreated>
+
+<Property name="NAME">
+<Description>
+Наименование</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="ACTSTATID">
+<Description>
+Статус актуальности ФИАС</Description>
+<Type>Data.ADDROBJ</Type>
+<Cardinality>one</Cardinality>
+<Inverse>ACTSTATUS</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.ACTSTATD</DataLocation>
+<DefaultData>ACTSTATDefaultData</DefaultData>
+<IdLocation>^Data.ACTSTATD</IdLocation>
+<IndexLocation>^Data.ACTSTATI</IndexLocation>
+<StreamLocation>^Data.ACTSTATS</StreamLocation>
+<Data name="ACTSTATDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>NAME</Value>
+</Value>
+<Value name="3">
+<Value>ACTSTATID</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
