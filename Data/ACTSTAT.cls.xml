@@ -17,7 +17,7 @@
 <Description>
 Статус актуальности ФИАС</Description>
 <Type>Data.ADDROBJ</Type>
-<Cardinality>one</Cardinality>
+<Cardinality>parent</Cardinality>
 <Inverse>ACTSTATUS</Inverse>
 <Relationship>1</Relationship>
 </Property>
@@ -30,8 +30,6 @@
 <IndexLocation>^Data.ACTSTATI</IndexLocation>
 <StreamLocation>^Data.ACTSTATS</StreamLocation>
 <Data name="ACTSTATDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>

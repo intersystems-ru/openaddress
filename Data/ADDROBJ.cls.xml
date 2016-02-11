@@ -191,24 +191,19 @@ OKTMO</Description>
 <Description>
 Статус актуальности адресного объекта ФИАС. Актуальный адрес на текущую дату. Обычно последняя запись об адресном объекте.</Description>
 <Type>Data.ACTSTAT</Type>
-<Cardinality>many</Cardinality>
+<Cardinality>children</Cardinality>
 <Inverse>ACTSTATID</Inverse>
 <Relationship>1</Relationship>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Статус центра
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// Relationship CENTSTATUS As Data.
-
-]]></Content>
-</UDLText>
+<Property name="CENTSTATUS">
+<Description>
+Статус центра</Description>
+<Type>Data.CENTERST</Type>
+<Cardinality>children</Cardinality>
+<Inverse>CENTERSTID</Inverse>
+<Relationship>1</Relationship>
+</Property>
 
 <UDLText name="T">
 <Content><![CDATA[
@@ -224,19 +219,14 @@ OKTMO</Description>
 ]]></Content>
 </UDLText>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Статус актуальности КЛАДР 4 (последние две цифры в коде)
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// Relationship CURRSTATUS As Data.
-
-]]></Content>
-</UDLText>
+<Property name="CURRSTATUS">
+<Description>
+Статус актуальности КЛАДР 4 (последние две цифры в коде)</Description>
+<Type>Data.CURENTST</Type>
+<Cardinality>children</Cardinality>
+<Inverse>CURENTSTID</Inverse>
+<Relationship>1</Relationship>
+</Property>
 
 <Property name="STARTDATE">
 <Description>
@@ -252,25 +242,25 @@ OKTMO</Description>
 <Required>1</Required>
 </Property>
 
-<Property name="NORMDOC">
+<UDLText name="T">
+<Content><![CDATA[
+// Внешний ключ на нормативный документ
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship NORMDOC As Data.
+
+]]></Content>
+</UDLText>
+
+<Property name="LIVESTATUS">
 <Description>
-Внешний ключ на нормативный документ</Description>
-<Type>%String</Type>
+Признак действующего адресного объекта</Description>
+<Type>%Integer</Type>
 </Property>
-
-<UDLText name="T">
-<Content><![CDATA[
-// Признак действующего адресного объекта
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// Relationship LIVESTATUS As Data.
-
-]]></Content>
-</UDLText>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -378,6 +368,15 @@ OKTMO</Description>
 </Value>
 <Value name="33">
 <Value>LIVESTATUS</Value>
+</Value>
+<Value name="34">
+<Value>ACTSTATUS</Value>
+</Value>
+<Value name="35">
+<Value>CENTSTATUS</Value>
+</Value>
+<Value name="36">
+<Value>CURRSTATUS</Value>
 </Value>
 </Data>
 </Storage>

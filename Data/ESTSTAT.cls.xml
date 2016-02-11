@@ -19,16 +19,16 @@
 <Type>%String</Type>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Relationship ESTSTATID As Data.HOUSE [ Cardinality = parent, Inverse = ESTSTATUS ];
-
-]]></Content>
-</UDLText>
-
-<Storage name="Default">
+<Property name="ESTSTATID">
 <Description>
 Статус актуальности ФИАС</Description>
+<Type>Data.HOUSE</Type>
+<Cardinality>parent</Cardinality>
+<Inverse>ESTSTATUS</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.ESTSTATD</DataLocation>
 <DefaultData>ESTSTATDefaultData</DefaultData>

@@ -104,19 +104,14 @@ ENDDATE</Description>
 <Required>1</Required>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Состояние дома
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// 	Relationship INTSTATUS As Data.INTVSTAT [ Cardinality = parent, Inverse = INTVSTATID ];
-
-]]></Content>
-</UDLText>
+<Property name="INTSTATUS">
+<Description>
+Состояние дома</Description>
+<Type>Data.INTVSTAT</Type>
+<Cardinality>children</Cardinality>
+<Inverse>INTVSTATID</Inverse>
+<Relationship>1</Relationship>
+</Property>
 
 <UDLText name="T">
 <Content><![CDATA[
@@ -147,8 +142,6 @@ ENDDATE</Description>
 <IndexLocation>^Data.HOUSEINTI</IndexLocation>
 <StreamLocation>^Data.HOUSEINTS</StreamLocation>
 <Data name="HOUSEINTDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>

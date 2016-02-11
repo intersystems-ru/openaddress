@@ -120,19 +120,14 @@ ENDDATE</Description>
 <Type>%String</Type>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Состояние дома
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// 	Relationship STATSTATUS As Data.HSTSTAT [ Cardinality = parent, Inverse = HOUSESTID ];
-
-]]></Content>
-</UDLText>
+<Property name="STATSTATUS">
+<Description>
+Состояние дома</Description>
+<Type>Data.HSTSTAT</Type>
+<Cardinality>children</Cardinality>
+<Inverse>HOUSESTID</Inverse>
+<Relationship>1</Relationship>
+</Property>
 
 <UDLText name="T">
 <Content><![CDATA[
@@ -163,8 +158,6 @@ ENDDATE</Description>
 <IndexLocation>^Data.HOUSEI</IndexLocation>
 <StreamLocation>^Data.HOUSES</StreamLocation>
 <Data name="HOUSEDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
