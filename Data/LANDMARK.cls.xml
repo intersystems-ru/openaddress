@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.LANDMARK">
+<Description>
+Описание мест расположения  имущественных объектов</Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>63959,75236.633074</TimeCreated>
+
+<Property name="LOCATION">
+<Description>
+Месторасположение ориентира</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="POSTALCODE">
+<Description>
+Почтовый индекс</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="IFNSFL">
+<Description>
+Код ИФНС ФЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="TERRIFNSFL">
+<Description>
+Код территориального участка ИФНС ФЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="IFNSUL">
+<Description>
+Код ИФНС ЮЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="TERRIFNSUL">
+<Description>
+Код территориального участка ИФНС ЮЛ</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="OKATO">
+<Description>
+OKATO</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="OKTMO">
+<Description>
+OKTMO</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="UPDATEDATE">
+<Description>
+Дата время внесения записи</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="LANDID">
+<Description>
+Уникальный идентификатор записи ориентира</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="LANDGUID">
+<Description>
+Глобальный уникальный идентификатор ориентира</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="AOGUID">
+<Description>
+Guid записи родительского объекта (улицы, города, населенного пункта и т.п.)</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="STARTDATE">
+<Description>
+STARTDATE</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="ENDDATE">
+<Description>
+ENDDATE</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Внешний ключ на нормативный документ
+
+]]></Content>
+</UDLText>
+
+<UDLText name="T">
+<Content><![CDATA[
+// 	Relationship NORMDOC As Data.NORMDOC [ Cardinality = one, Inverse = NORMDOCID ];
+
+]]></Content>
+</UDLText>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.LANDMARKD</DataLocation>
+<DefaultData>LANDMARKDefaultData</DefaultData>
+<IdLocation>^Data.LANDMARKD</IdLocation>
+<IndexLocation>^Data.LANDMARKI</IndexLocation>
+<StreamLocation>^Data.LANDMARKS</StreamLocation>
+<Data name="LANDMARKDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>LOCATION</Value>
+</Value>
+<Value name="3">
+<Value>POSTALCODE</Value>
+</Value>
+<Value name="4">
+<Value>IFNSFL</Value>
+</Value>
+<Value name="5">
+<Value>TERRIFNSFL</Value>
+</Value>
+<Value name="6">
+<Value>IFNSUL</Value>
+</Value>
+<Value name="7">
+<Value>TERRIFNSUL</Value>
+</Value>
+<Value name="8">
+<Value>OKATO</Value>
+</Value>
+<Value name="9">
+<Value>OKTMO</Value>
+</Value>
+<Value name="10">
+<Value>UPDATEDATE</Value>
+</Value>
+<Value name="11">
+<Value>LANDID</Value>
+</Value>
+<Value name="12">
+<Value>LANDGUID</Value>
+</Value>
+<Value name="13">
+<Value>AOGUID</Value>
+</Value>
+<Value name="14">
+<Value>STARTDATE</Value>
+</Value>
+<Value name="15">
+<Value>ENDDATE</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
