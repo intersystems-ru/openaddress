@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.STRSTAT">
+<Description>
+Признак строения</Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>63962,83408.399738</TimeCreated>
+
+<Property name="STRSTATID">
+<Description>
+Признак строения</Description>
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="NAME">
+<Description>
+Наименование</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="SHORTNAME">
+<Description>
+Краткое наименование</Description>
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.STRSTATD</DataLocation>
+<DefaultData>STRSTATDefaultData</DefaultData>
+<IdLocation>^Data.STRSTATD</IdLocation>
+<IndexLocation>^Data.STRSTATI</IndexLocation>
+<StreamLocation>^Data.STRSTATS</StreamLocation>
+<Data name="STRSTATDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>STRSTATID</Value>
+</Value>
+<Value name="3">
+<Value>NAME</Value>
+</Value>
+<Value name="4">
+<Value>SHORTNAME</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
