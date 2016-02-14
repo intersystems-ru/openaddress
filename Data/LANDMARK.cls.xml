@@ -96,19 +96,11 @@ ENDDATE</Description>
 <Required>1</Required>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Внешний ключ на нормативный документ
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// 	Relationship NORMDOC As Data.NORMDOC [ Cardinality = one, Inverse = NORMDOCID ];
-
-]]></Content>
-</UDLText>
+<Property name="NORMDOC">
+<Description>
+Внешний ключ на нормативный документ</Description>
+<Type>%String</Type>
+</Property>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -118,8 +110,6 @@ ENDDATE</Description>
 <IndexLocation>^Data.LANDMARKI</IndexLocation>
 <StreamLocation>^Data.LANDMARKS</StreamLocation>
 <Data name="LANDMARKDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
@@ -164,6 +154,9 @@ ENDDATE</Description>
 </Value>
 <Value name="15">
 <Value>ENDDATE</Value>
+</Value>
+<Value name="16">
+<Value>NORMDOC</Value>
 </Value>
 </Data>
 </Storage>
