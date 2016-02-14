@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.NORMDOC">
+<Description>
+Сведения по нормативному документу, являющемуся основанием присвоения адресному элементу наименования</Description>
+<Super>%Persistent,%Populate,%XML.Adaptor</Super>
+<TimeCreated>63962,82339.233517</TimeCreated>
+
+<Property name="NORMDOCID">
+<Description>
+Признак владения</Description>
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="DOCNAME">
+<Description>
+Наименование документа</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="DOCDATE">
+<Description>
+Дата документа</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="DOCNUM">
+<Description>
+Номер документа</Description>
+<Type>%String</Type>
+</Property>
+
+<Property name="DOCTYPE">
+<Description>
+Тип документа</Description>
+<Type>Data.NDOCTYPE</Type>
+<Cardinality>children</Cardinality>
+<Inverse>NDTYPEID</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="DOCIMGID">
+<Description>
+Идентификатор образа (внешний ключ)</Description>
+<Type>%Integer</Type>
+<Required>1</Required>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.NORMDOCD</DataLocation>
+<DefaultData>NORMDOCDefaultData</DefaultData>
+<IdLocation>^Data.NORMDOCD</IdLocation>
+<IndexLocation>^Data.NORMDOCI</IndexLocation>
+<StreamLocation>^Data.NORMDOCS</StreamLocation>
+<Data name="NORMDOCDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>DOCNAME</Value>
+</Value>
+<Value name="3">
+<Value>DOCDATE</Value>
+</Value>
+<Value name="4">
+<Value>DOCNUM</Value>
+</Value>
+<Value name="5">
+<Value>DOCIMGID</Value>
+</Value>
+<Value name="6">
+<Value>NORMDOCID</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
