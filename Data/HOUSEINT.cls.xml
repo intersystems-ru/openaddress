@@ -113,19 +113,11 @@ ENDDATE</Description>
 <Relationship>1</Relationship>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Внешний ключ на нормативный документ
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// 	Relationship NORMDOC As Data.NORMDOC [ Cardinality = one, Inverse = NORMDOCID ];
-
-]]></Content>
-</UDLText>
+<Property name="NORMDOC">
+<Description>
+Внешний ключ на нормативный документ</Description>
+<Type>%String</Type>
+</Property>
 
 <Property name="COUNTER">
 <Description>
@@ -192,6 +184,9 @@ ENDDATE</Description>
 </Value>
 <Value name="17">
 <Value>COUNTER</Value>
+</Value>
+<Value name="18">
+<Value>NORMDOC</Value>
 </Value>
 </Data>
 </Storage>

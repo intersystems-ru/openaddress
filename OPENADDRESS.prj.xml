@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Project name="OPENADDRESS" LastModified="2016-02-11 20:53:58.012338" HttpServer="http://localhost:57772">
+<Project name="OPENADDRESS" LastModified="2016-02-14 23:10:09.683768" HttpServer="http://localhost:57772">
   <Items>
     <ProjectItem name="Data.ACTSTAT" type="CLS"></ProjectItem>
     <ProjectItem name="Data.ADDROBJ" type="CLS"></ProjectItem>
@@ -12,6 +12,11 @@
     <ProjectItem name="Data.HSTSTAT" type="CLS"></ProjectItem>
     <ProjectItem name="Data.INTVSTAT" type="CLS"></ProjectItem>
     <ProjectItem name="Data.LANDMARK" type="CLS"></ProjectItem>
+    <ProjectItem name="Data.NDOCTYPE" type="CLS"></ProjectItem>
+    <ProjectItem name="Data.NORMDOC" type="CLS"></ProjectItem>
+    <ProjectItem name="Data.OPERSTAT" type="CLS"></ProjectItem>
+    <ProjectItem name="Data.SOCRBASE" type="CLS"></ProjectItem>
+    <ProjectItem name="Data.STRSTAT" type="CLS"></ProjectItem>
   </Items>
 </Project>
 </Export>

@@ -205,19 +205,14 @@ OKTMO</Description>
 <Relationship>1</Relationship>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Статус действия над записью – причина появления записи
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// Relationship OPERSTATUS As Data.
-
-]]></Content>
-</UDLText>
+<Property name="OPERSTATUS">
+<Description>
+Статус действия над записью – причина появления записи</Description>
+<Type>Data.OPERSTAT</Type>
+<Cardinality>children</Cardinality>
+<Inverse>OPERSTATID</Inverse>
+<Relationship>1</Relationship>
+</Property>
 
 <Property name="CURRSTATUS">
 <Description>
@@ -242,19 +237,11 @@ OKTMO</Description>
 <Required>1</Required>
 </Property>
 
-<UDLText name="T">
-<Content><![CDATA[
-// Внешний ключ на нормативный документ
-
-]]></Content>
-</UDLText>
-
-<UDLText name="T">
-<Content><![CDATA[
-// Relationship NORMDOC As Data.
-
-]]></Content>
-</UDLText>
+<Property name="NORMDOC">
+<Description>
+Внешний ключ на нормативный документ</Description>
+<Type>%String</Type>
+</Property>
 
 <Property name="LIVESTATUS">
 <Description>
