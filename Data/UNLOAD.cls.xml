@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.UNLOAD">
+<TimeCreated>64020,54439.535756</TimeCreated>
+
+<Method name="Load">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>site:%String,path:%String</FormalSpec>
+<Implementation><![CDATA[
+	w "Saving file..."
+	Set httpr=##class(%Net.HttpRequest).%New()
+	Set httpr.Server=site
+	Do httpr.Get(path)
+	Set file=##class(%Stream.FileBinary).%New()
+	Set file.Filename="C:\temp\base.7z"
+	Set status=file.CopyFrom(httpr.HttpResponse.Data)
+	Set status=file.%Save()
+	w !
+	w "Saved to C:\temp\ as base.7z"
+	
+	///пример site: "fias.nalog.ru"
+	///пример path: "/Public/Downloads/Actual/base.7z"
+]]></Implementation>
+</Method>
+</Class>
+</Export>
