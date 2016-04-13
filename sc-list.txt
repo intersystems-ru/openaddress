@@ -1,1 +1,4 @@
+Data.pkg
+DownloadService.pkg
+DownloadService.Updating.pkg
 OPENADDRESS.prj
