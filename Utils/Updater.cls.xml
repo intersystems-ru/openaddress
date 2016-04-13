@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Utils.Updater">
+<TimeCreated>64021,74748.69193</TimeCreated>
+
+<Method name="Load">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>url</FormalSpec>
+<Implementation><![CDATA[
+	///пример path: "/Public/Downloads/Actual/base.7z"	
+	Set httprequest=##class(%Net.HttpRequest).%New()
+	Set httprequest.Server="fias.nalog.ru"
+	Write "Инициализируем http подключение...",!
+	Write "Запущен процесс № "
+	Write $Job,!
+	Set sc=httprequest.Get(url)	
+	if $$$ISERR(sc) {
+		w "Ошибка при инициализации http подключения. Проверьте соединение с интернетом или правильность ввода ссылки."
+		q
+	}
+	Write "Размер скачиваемого файла:"_httprequest.HttpResponse.Data.Size,!	
+	Set stream=##class(%Stream.FileBinary).%New()
+	Set count=0		  	
+	Set stream.Filename= $PIECE(url,"/",*+count)	
+	Do httprequest.HttpResponse.Data.Rewind()
+	Set sc=stream.CopyFrom(httprequest.HttpResponse.Data)	
+	if $$$ISERR(sc) {
+		w "Ошибка при попытке копировать данные из потока."
+		q
+	}
+	Set sc=stream.%Save()
+	if $$$ISERR(sc) {
+		w "Ошибка при сохранить архив."
+		q
+	}
+]]></Implementation>
+</Method>
+</Class>
+</Export>
