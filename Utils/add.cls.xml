@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Utils.add">
+<Super>%Persistent</Super>
+<TimeCreated>64022,35781.226031</TimeCreated>
+
+<Method name="add">
+<FormalSpec>a</FormalSpec>
+<Implementation><![CDATA[
+	TStart 
+	&SQL(
+	
+	insert into Data.ACTSTAT (name )
+	Values (:a)
+	)
+	tcommit
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Utils.addD</DataLocation>
+<DefaultData>addDefaultData</DefaultData>
+<IdLocation>^Utils.addD</IdLocation>
+<IndexLocation>^Utils.addI</IndexLocation>
+<StreamLocation>^Utils.addS</StreamLocation>
+<Data name="addDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

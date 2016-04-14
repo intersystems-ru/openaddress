@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Project name="OPENADDRESS" LastModified="2016-04-13 20:51:03.877338" HttpServer="http://localhost:57772">
+<Project name="OPENADDRESS" LastModified="2016-04-14 10:20:18.750654" HttpServer="http://localhost:57772">
   <Items>
     <ProjectItem name="Data.ACTSTAT" type="CLS"></ProjectItem>
     <ProjectItem name="Data.ADDROBJ" type="CLS"></ProjectItem>
@@ -19,6 +19,8 @@
     <ProjectItem name="Data.STRSTAT" type="CLS"></ProjectItem>
     <ProjectItem name="Data.UNLOAD" type="CLS"></ProjectItem>
     <ProjectItem name="Utils.Updater" type="CLS"></ProjectItem>
+    <ProjectItem name="Utils.add" type="CLS"></ProjectItem>
+    <ProjectItem name="Utils.Tests.TestA" type="CLS"></ProjectItem>
   </Items>
 </Project>
 </Export>

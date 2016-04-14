@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Utils.Tests.TestA">
+<Super>%UnitTest.TestCase</Super>
+<TimeCreated>64022,36828.985676</TimeCreated>
+
+<Method name="TestAdd">
+<Implementation><![CDATA[
+	 set a = "asdas"
+	 set id = ##class(Utils.add).add(a)
+	 set b = ##class(Utils.add).%OpenId(b)
+	 do $$$AssertTrue($IsObject(b))
+    
+    do $$$AssertEquals(b.name, a)
+]]></Implementation>
+</Method>
+</Class>
+</Export>
