@@ -5,6 +5,32 @@
 <Super>%SOAP.WebClient</Super>
 <TimeCreated>64021,65481.536469</TimeCreated>
 
+<<<<<<< HEAD
+=======
+<Method name="GetAllDownloadFileInfo">
+<Final>1</Final>
+<ProcedureBlock>1</ProcedureBlock>
+<ReturnType>%ListOfObjects</ReturnType>
+<WebMethod>1</WebMethod>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<ReturnTypeParams>ELEMENTTYPE="DownloadService.DownloadFileInfo",XMLITEMNAME="DownloadFileInfo",XMLNAME="GetAllDownloadFileInfoResult"</ReturnTypeParams>
+<Implementation><![CDATA[ Quit ..WebMethod("GetAllDownloadFileInfo").Invoke($this,"http://fias.nalog.ru/WebServices/Public/DownloadService.asmx/GetAllDownloadFileInfo")
+]]></Implementation>
+</Method>
+
+<Method name="GetLastDownloadFileInfo">
+<Final>1</Final>
+<ProcedureBlock>1</ProcedureBlock>
+<ReturnType>DownloadService.DownloadFileInfo</ReturnType>
+<WebMethod>1</WebMethod>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<Implementation><![CDATA[ Quit ..WebMethod("GetLastDownloadFileInfo").Invoke($this,"http://fias.nalog.ru/WebServices/Public/DownloadService.asmx/GetLastDownloadFileInfo")
+]]></Implementation>
+</Method>
+
+>>>>>>> a5af54f0e242e6f9f08e269e5f3affc01d57da60
 <Parameter name="LOCATION">
 <Description>
 This is the URL used to access the web service.</Description>
@@ -39,6 +65,7 @@ This is the name of the Service</Description>
 <Description>
 This service supports both SOAP 1.1 and SOAP 1.2.</Description>
 </Parameter>
+<<<<<<< HEAD
 
 <Method name="GetAllDownloadFileInfo">
 <Final>1</Final>
@@ -62,5 +89,7 @@ This service supports both SOAP 1.1 and SOAP 1.2.</Description>
 <Implementation><![CDATA[ Quit ..WebMethod("GetLastDownloadFileInfo").Invoke($this,"http://fias.nalog.ru/WebServices/Public/DownloadService.asmx/GetLastDownloadFileInfo")
 ]]></Implementation>
 </Method>
+=======
+>>>>>>> a5af54f0e242e6f9f08e269e5f3affc01d57da60
 </Class>
 </Export>
