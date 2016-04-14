@@ -7,21 +7,31 @@
 <ClassMethod>1</ClassMethod>
 <FormalSpec>url</FormalSpec>
 <Implementation><![CDATA[
-	///пример path: "/Public/Downloads/Actual/base.7z"	
+	///пример url: "/Public/Downloads/Actual/base.7z"	
 	Set httprequest=##class(%Net.HttpRequest).%New()
 	Set httprequest.Server="fias.nalog.ru"
 	Write "Инициализируем http подключение...",!
 	Write "Запущен процесс № "
+	
+	///$Job - id текущего процесса
 	Write $Job,!
 	Set sc=httprequest.Get(url)	
+	
+	///Если sc на данном этапе возвращает ошибку, то мы выводим свое сообщение об ошибке, тут все понятно, как и в подобном коде ниже.
 	if $$$ISERR(sc) {
 		w "Ошибка при инициализации http подключения. Проверьте соединение с интернетом или правильность ввода ссылки."
 		q
 	}
 	Write "Размер скачиваемого файла:"_httprequest.HttpResponse.Data.Size,!	
 	Set stream=##class(%Stream.FileBinary).%New()
+	
+	///Не понимаю, зачем объявлять переменную count, если она нигде не меняет значение, нельзя ли просто сделать так: Set stream.Filename= $PIECE(url,"/",*+0) ?
 	Set count=0		  	
-	Set stream.Filename= $PIECE(url,"/",*+count)	
+	
+	///Так и не разобрался куда сохраняет файл данный код; $PIECE(url,"/",*+count) возвращает просто имя файла без пути, а по заданию нужно, чтобы сохранение производилось в C:\temp\, поэтому предлагаю следующий вариант: Set stream.Filename= "C:\temp\"_$PIECE(url,"/",*+count)
+	Set stream.Filename=$PIECE(url,"/",*+count)	
+	
+	///Понял, что это перемотка потока в начало, но не понял, зачем она нужна =)
 	Do httprequest.HttpResponse.Data.Rewind()
 	Set sc=stream.CopyFrom(httprequest.HttpResponse.Data)	
 	if $$$ISERR(sc) {
@@ -30,7 +40,7 @@
 	}
 	Set sc=stream.%Save()
 	if $$$ISERR(sc) {
-		w "Ошибка при сохранить архив."
+		w "Ошибка при попытке сохранить архив."
 		q
 	}
 ]]></Implementation>
