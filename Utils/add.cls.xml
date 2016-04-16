@@ -4,15 +4,30 @@
 <Super>%Persistent</Super>
 <TimeCreated>64022,35781.226031</TimeCreated>
 
+<UDLText name="T">
+<Content><![CDATA[
+/**
+*Желательно бы описывать метод. в комментариях.
+**/
+]]></Content>
+</UDLText>
+
 <Method name="add">
 <FormalSpec>a</FormalSpec>
 <Implementation><![CDATA[
+		
+	//Лучше будет ,если в коде будут правила наименования и написания. т.е. плохо, когда 
+	//Tstart & tcommit, лучше когда Tstart & Tcommit
+	//А еще лучше как в документации TSTART TCOMMIT TROLLBACK
 	TStart 
 	&SQL(
 	
 	insert into Data.ACTSTAT (name )
 	Values (:a)
 	)
+	//if ... TCOMMIT
+	//else  TROLLBACK и на вход нужно подавать такое значение, чтобы тестом можно было проверить оба варианта. Когда
+	//запись будет созадна в таблице и наоборот.
 	tcommit
 ]]></Implementation>
 </Method>

@@ -3,6 +3,14 @@
 <Class name="Utils.Updater">
 <TimeCreated>64021,74748.69193</TimeCreated>
 
+<UDLText name="T">
+<Content><![CDATA[
+/**
+*Метод, скачивающий архив обновлений БД с сайта ФИАС по заданной ссылке	
+**/
+]]></Content>
+</UDLText>
+
 <Method name="Load">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>url</FormalSpec>
@@ -29,7 +37,7 @@
 	Set count=0		  	
 	
 	///Так и не разобрался куда сохраняет файл данный код; $PIECE(url,"/",*+count) возвращает просто имя файла без пути, а по заданию нужно, чтобы сохранение производилось в C:\temp\, поэтому предлагаю следующий вариант: Set stream.Filename= "C:\temp\"_$PIECE(url,"/",*+count)
-	Set stream.Filename=$PIECE(url,"/",*+count)	
+	Set stream.Filename="C:\temp\"_$PIECE(url,"/",*)	
 	
 	///Понял, что это перемотка потока в начало, но не понял, зачем она нужна =)
 	Do httprequest.HttpResponse.Data.Rewind()
