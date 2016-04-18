@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Utils.Tests.TestG">
+<Super>%UnitTest.TestCase</Super>
+<TimeCreated>64026,70265.777637</TimeCreated>
+
+<Method name="TestK">
+<Implementation><![CDATA[
+	
+	
+ set a = "45" 
+
+/// при выполнении нижне строки вылетает ошибка 
+///Function must return a value at zaddd+13^Utils.add.1
+
+ set p =##class(Utils.add).addd(a) 
+ 
+ set b = ##class(Utils.add).%OpenId(p)
+ 
+
+ do $$$AssertTrue($IsObject(b))
+
+ do $$$AssertEquals(b.name, a)
+]]></Implementation>
+</Method>
+</Class>
+</Export>

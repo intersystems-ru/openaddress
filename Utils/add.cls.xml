@@ -6,29 +6,46 @@
 
 <UDLText name="T">
 <Content><![CDATA[
+// Для удобства создал свою табличку.
+
+]]></Content>
+</UDLText>
+
+<Property name="name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<UDLText name="T">
+<Content><![CDATA[
 /**
-*Желательно бы описывать метод. в комментариях.
+Метод добавляет запись в таблицу Utils.add
+ При вводе NULL'a метод выполнит Trollback,
+ а также сообщит что запись не сохранена
 **/
 ]]></Content>
 </UDLText>
 
-<Method name="add">
+<Method name="addd">
+<ClassMethod>1</ClassMethod>
 <FormalSpec>a</FormalSpec>
 <Implementation><![CDATA[
 		
-	//Лучше будет ,если в коде будут правила наименования и написания. т.е. плохо, когда 
-	//Tstart & tcommit, лучше когда Tstart & Tcommit
-	//А еще лучше как в документации TSTART TCOMMIT TROLLBACK
 	TStart 
 	&SQL(
-	
-	insert into Data.ACTSTAT (name )
+	insert into Utils."add" (Name )
 	Values (:a)
 	)
-	//if ... TCOMMIT
-	//else  TROLLBACK и на вход нужно подавать такое значение, чтобы тестом можно было проверить оба варианта. Когда
-	//запись будет созадна в таблице и наоборот.
-	tcommit
+	if a = "NULL"{w "Не сохранено"
+		Trollback
+		 q 
+		 }
+	else 
+	{
+		Tcommit 
+	w "Сохранено"
+	q
+	}
 ]]></Implementation>
 </Method>
 
@@ -42,6 +59,12 @@
 <Data name="addDefaultData">
 <Value name="1">
 <Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>name</Value>
 </Value>
 </Data>
 </Storage>
