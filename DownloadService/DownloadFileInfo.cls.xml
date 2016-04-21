@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="DownloadService.DownloadFileInfo">
+<Description>
+Создано из: http://fias.nalog.ru/WebServices/Public/DownloadService.asmx?WSDL</Description>
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%RegisteredObject,%XML.Adaptor</Super>
+<TimeCreated>64029,54381.011474</TimeCreated>
+
+<Parameter name="ELEMENTQUALIFIED">
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Default>http://fias.nalog.ru/WebServices/Public/DownloadService.asmx</Default>
+</Parameter>
+
+<Parameter name="XMLNAME">
+<Default>DownloadFileInfo</Default>
+</Parameter>
+
+<Parameter name="XMLSEQUENCE">
+<Default>1</Default>
+</Parameter>
+
+<Property name="VersionId">
+<Type>%xsd.int</Type>
+<Required>1</Required>
+<Parameter name="XMLNAME" value="VersionId"/>
+</Property>
+
+<Property name="TextVersion">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLNAME" value="TextVersion"/>
+</Property>
+
+<Property name="FiasCompleteDbfUrl">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLNAME" value="FiasCompleteDbfUrl"/>
+</Property>
+
+<Property name="FiasCompleteXmlUrl">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLNAME" value="FiasCompleteXmlUrl"/>
+</Property>
+
+<Property name="FiasDeltaDbfUrl">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLNAME" value="FiasDeltaDbfUrl"/>
+</Property>
+
+<Property name="FiasDeltaXmlUrl">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLNAME" value="FiasDeltaXmlUrl"/>
+</Property>
+
+<Property name="Kladr4ArjUrl">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLNAME" value="Kladr4ArjUrl"/>
+</Property>
+
+<Property name="Kladr47ZUrl">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+<Parameter name="XMLNAME" value="Kladr47ZUrl"/>
+</Property>
+</Class>
+</Export>

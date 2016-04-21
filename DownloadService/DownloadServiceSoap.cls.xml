@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="DownloadService.DownloadServiceSoap">
+<ProcedureBlock>1</ProcedureBlock>
+<Super>%SOAP.WebClient</Super>
+<TimeCreated>64029,54380.874234</TimeCreated>
+
+<Method name="GetAllDownloadFileInfo">
+<Final>1</Final>
+<ProcedureBlock>1</ProcedureBlock>
+<ReturnType>%ListOfObjects</ReturnType>
+<WebMethod>1</WebMethod>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<ReturnTypeParams>ELEMENTTYPE="DownloadService.DownloadFileInfo",XMLITEMNAME="DownloadFileInfo",XMLNAME="GetAllDownloadFileInfoResult"</ReturnTypeParams>
+<Implementation><![CDATA[ Quit ..WebMethod("GetAllDownloadFileInfo").Invoke($this,"http://fias.nalog.ru/WebServices/Public/DownloadService.asmx/GetAllDownloadFileInfo")
+]]></Implementation>
+</Method>
+
+<Method name="GetLastDownloadFileInfo">
+<Final>1</Final>
+<ProcedureBlock>1</ProcedureBlock>
+<ReturnType>DownloadService.DownloadFileInfo</ReturnType>
+<WebMethod>1</WebMethod>
+<SoapBindingStyle>document</SoapBindingStyle>
+<SoapBodyUse>literal</SoapBodyUse>
+<Implementation><![CDATA[ Quit ..WebMethod("GetLastDownloadFileInfo").Invoke($this,"http://fias.nalog.ru/WebServices/Public/DownloadService.asmx/GetLastDownloadFileInfo")
+]]></Implementation>
+</Method>
+
+<Parameter name="LOCATION">
+<Description>
+This is the URL used to access the web service.</Description>
+<Default>http://fias.nalog.ru/WebServices/Public/DownloadService.asmx</Default>
+</Parameter>
+
+<Parameter name="NAMESPACE">
+<Description>
+This is the namespace used by the Service</Description>
+<Default>http://fias.nalog.ru/WebServices/Public/DownloadService.asmx</Default>
+</Parameter>
+
+<Parameter name="OUTPUTTYPEATTRIBUTE">
+<Description>
+Use xsi:type attribute for literal types.</Description>
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="SECURITYIN">
+<Description>
+Determines handling of Security header.</Description>
+<Default>ALLOW</Default>
+</Parameter>
+
+<Parameter name="SERVICENAME">
+<Description>
+This is the name of the Service</Description>
+<Default>DownloadService</Default>
+</Parameter>
+
+<Parameter name="SOAPVERSION">
+<Description>
+This service supports both SOAP 1.1 and SOAP 1.2.</Description>
+</Parameter>
+</Class>
+</Export>
