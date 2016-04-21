@@ -14,6 +14,7 @@
 <Method name="Load">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>url</FormalSpec>
+<ReturnType>%Boolean</ReturnType>
 <Implementation><![CDATA[
 	///пример url: "/Public/Downloads/Actual/base.7z"	
 	Set httprequest=##class(%Net.HttpRequest).%New()
@@ -28,7 +29,7 @@
 	///Если sc на данном этапе возвращает ошибку, то мы выводим свое сообщение об ошибке, тут все понятно, как и в подобном коде ниже.
 	if $$$ISERR(sc) {
 		w "Ошибка при инициализации http подключения. Проверьте соединение с интернетом или правильность ввода ссылки."
-		q
+		q 0
 	}
 	Write "Размер скачиваемого файла:"_httprequest.HttpResponse.Data.Size,!	
 	Set stream=##class(%Stream.FileBinary).%New()
@@ -44,12 +45,42 @@
 	Set sc=stream.CopyFrom(httprequest.HttpResponse.Data)	
 	if $$$ISERR(sc) {
 		w "Ошибка при попытке копировать данные из потока."
-		q
+		q 0
 	}
 	Set sc=stream.%Save()
 	if $$$ISERR(sc) {
 		w "Ошибка при попытке сохранить архив."
-		q
+		q 0
+	}
+	q 1
+]]></Implementation>
+</Method>
+
+<Method name="GetUpdateInfo">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+
+	s info = ##class(DownloadService.DownloadFileInfo).%New()
+	s info = ##class(DownloadService.DownloadServiceSoap).%New().GetLastDownloadFileInfo()
+	s currId = 0
+	s selectId = info.VersionId
+	&sql(select MAX(VersionId) into :currId from Data.VersionInfo)
+	if selectId > currId { 
+		TSTART	
+		s res = ..Load($p(info.FiasDeltaDbfUrl,"/",4,7))		
+		if res = 1 {
+			s version = ##class(Data.VersionInfo).%New()
+			s version.VersionId = selectId //лучше преобразовать в integer
+			s version.VersionName = info.TextVersion
+			w version.%Save()
+			//d ..Import()
+			
+			TCOMMIT
+		} else {
+			TROLLBACK	
+		}
+	} else {
+		w "Версии БД ФИАС совпадают. Обновление не нужно."	
 	}
 ]]></Implementation>
 </Method>

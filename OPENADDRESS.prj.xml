@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Project name="OPENADDRESS" LastModified="2016-04-21 15:10:15.468539" HttpServer="http://localhost:57772">
+<Project name="OPENADDRESS" LastModified="2016-04-21 16:34:08.82434" HttpServer="http://localhost:57772">
   <Items>
     <ProjectItem name="Data.ACTSTAT" type="CLS"></ProjectItem>
     <ProjectItem name="Data.ADDROBJ" type="CLS"></ProjectItem>
@@ -22,6 +22,7 @@
     <ProjectItem name="Utils.Updater" type="CLS"></ProjectItem>
     <ProjectItem name="Utils.add" type="CLS"></ProjectItem>
     <ProjectItem name="DownloadService" type="PKG"></ProjectItem>
+    <ProjectItem name="Data.VersionInfo" type="CLS"></ProjectItem>
   </Items>
 </Project>
 </Export>

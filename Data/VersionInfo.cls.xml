@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Data.VersionInfo">
+<Super>%Persistent</Super>
+<TimeCreated>64029,56400.135188</TimeCreated>
+
+<Property name="VersionId">
+<Type>%String</Type>
+</Property>
+
+<Property name="VersionName">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Data.VersionInfoD</DataLocation>
+<DefaultData>VersionInfoDefaultData</DefaultData>
+<IdLocation>^Data.VersionInfoD</IdLocation>
+<IndexLocation>^Data.VersionInfoI</IndexLocation>
+<StreamLocation>^Data.VersionInfoS</StreamLocation>
+<Data name="VersionInfoDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>VersionId</Value>
+</Value>
+<Value name="3">
+<Value>VersionName</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
