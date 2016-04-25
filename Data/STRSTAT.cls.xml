@@ -26,6 +26,24 @@
 <Type>%String</Type>
 </Property>
 
+<Method name="Input">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	do ##class(p6.Dbf).ReadFile("c:\STRSTAT.dbf")
+	for i=1:1:4 {
+			set stream =  ^||dbf("row",i)
+	 		s obj=##class(Data.STRSTAT).%New()
+	 		s obj.STRSTATID=$lg(stream,1)
+	 		s obj.NAME=$lg(stream,2)
+			s obj.SHORTNAME=$lg(stream,3)
+			d obj.%Save()
+	}
+	
+	quit $$$OK
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.STRSTATD</DataLocation>
@@ -34,8 +52,6 @@
 <IndexLocation>^Data.STRSTATI</IndexLocation>
 <StreamLocation>^Data.STRSTATS</StreamLocation>
 <Data name="STRSTATDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>

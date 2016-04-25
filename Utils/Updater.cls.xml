@@ -72,7 +72,7 @@
 			s version = ##class(Data.VersionInfo).%New()
 			s version.VersionId = selectId //лучше преобразовать в integer
 			s version.VersionName = info.TextVersion
-			w version.%Save()
+			d version.%Save()
 			//d ..Import()
 			
 			TCOMMIT
@@ -82,6 +82,20 @@
 	} else {
 		w "Версии БД ФИАС совпадают. Обновление не нужно."	
 	}
+]]></Implementation>
+</Method>
+
+<Method name="UnZip">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>file</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	s Archiver = "C:\Soft\7-Zip\7z.exe"
+	s TempDir = "c:\temp\"
+	s CommandString=Archiver_" x -r -aoa -o"""_TempDir_""" "_" """_file_""""
+	s st = $ZF(-1,CommandString)
+	w CommandString
+	q st
 ]]></Implementation>
 </Method>
 </Class>
