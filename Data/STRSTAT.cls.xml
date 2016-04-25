@@ -6,11 +6,16 @@
 <Super>%Persistent,%Populate,%XML.Adaptor</Super>
 <TimeCreated>63962,83408.399738</TimeCreated>
 
+<Parameter name="XMLNAME">
+<Default>StructureStatuses</Default>
+</Parameter>
+
 <Property name="STRSTATID">
 <Description>
 Признак строения</Description>
 <Type>%Integer</Type>
 <Required>1</Required>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
 </Property>
 
 <Property name="NAME">
@@ -18,13 +23,76 @@
 Наименование</Description>
 <Type>%String</Type>
 <Required>1</Required>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
 </Property>
 
 <Property name="SHORTNAME">
 <Description>
 Краткое наименование</Description>
 <Type>%String</Type>
+<Parameter name="XMLPROJECTION" value="ATTRIBUTE"/>
 </Property>
+
+<UDLText name="T">
+<Content><![CDATA[
+// Добавленный метод импорта из XML файла
+
+]]></Content>
+</UDLText>
+
+<Method name="Import">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	#include %occStatus
+	// Создаем экземпляр %XML.Reader
+    Set reader = ##class(%XML.Reader).%New()
+    
+    // Открываем наш XML файл. В будующем сделаю путь передаваемым в метод параметром.
+    Set status = reader.OpenFile("C:\temp\fias_delta_xml\AS_STRSTAT_20160418_127158a8-c2c2-4faa-9c05-fc699abdf54a.XML")
+    If $$$ISERR(status) {do $System.Status.DisplayError(status)}
+    
+    // Ассоциируем XML элемент с нашим классом
+    Do reader.Correlate("StructureStatus","Data.STRSTAT")
+    
+	set counter = 0
+    // Считываем данный с XML файла
+    While (reader.Next(.object,.status)) 
+    {
+		
+		s counter=counter+1
+		s obj = ##class(Data.STRSTAT).%New()	
+		TStart	
+		s obj.STRSTATID = object.STRSTATID
+		s obj.NAME = object.NAME
+		s obj.SHORTNAME = object.SHORTNAME
+		d obj.%Save()
+		Tcommit
+
+
+		/*Вариант заполнение через SQL, альтернатива объектному заполнению
+        set STRSTATID = object.STRSTATID
+        w STRSTATID
+        set NAME = object.NAME
+        set SHORTNAME = object.SHORTNAME
+        TStart
+        &SQL(
+			insert into Data.STRSTAT (STRSTATID,NAME,SHORTNAME)
+			Values (:STRSTATID, :NAME, :SHORTNAME)
+			)
+				
+		Tcommit 
+		*/ 
+    }
+	w "сохранено "_counter_" записей"
+    q obj //через sql нужно будет удалить obj
+    
+    // Обработчик ошибки
+    If $$$ISERR(status) {do $System.Status.DisplayError(status)}
+    
+    
+    //Do reader.Rewind() стоит ли добавить?
+]]></Implementation>
+</Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -34,8 +102,6 @@
 <IndexLocation>^Data.STRSTATI</IndexLocation>
 <StreamLocation>^Data.STRSTATS</StreamLocation>
 <Data name="STRSTATDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
