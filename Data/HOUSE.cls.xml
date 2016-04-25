@@ -91,21 +91,18 @@ OKTMO</Description>
 <Description>
 Уникальный идентификатор записи дома</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="HOUSEGUID">
 <Description>
 Глобальный уникальный идентификатор дома</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="AOGUID">
 <Description>
 Guid записи родительского объекта (улицы, города, населенного пункта и т.п.)</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="STARTDATE">
@@ -139,8 +136,43 @@ ENDDATE</Description>
 <Description>
 Счетчик записей домов для КЛАДР 4</Description>
 <Type>%Integer</Type>
-<Required>1</Required>
 </Property>
+
+<Method name="Input">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	for j=1:1:91 {
+		do ##class(p6.Dbf).ReadFile("d:\fias_delta_dbf\HOUSE"_j_".dbf")
+		for i=1:1:($listlength(^||dbf("header"))) {
+				set stream =  ^||dbf("row",i)
+		 		s obj=##class(Data.HOUSE).%New()
+		 		s obj.AOGUID=$lg(stream,1)
+		 		s obj.BUILDNUM=$lg(stream,2)
+		 		s obj.ENDDATE=$lg(stream,3)
+		 		s obj.ESTSTATUS=$lg(stream,4)
+		 		s obj.HOUSEGUID=$lg(stream,5)
+		 		s obj.HOUSEID=$lg(stream,6)
+		 		s obj.HOUSENUM=$lg(stream,7)
+		 		s obj.STATSTATUS=$lg(stream,8)
+		 		s obj.IFNSFL=$lg(stream,9)
+		 		s obj.IFNSUL=$lg(stream,10)
+		 		s obj.OKATO=$lg(stream,11)
+		 		s obj.OKTMO=$lg(stream,12)
+		 		s obj.POSTALCODE=$lg(stream,13)
+		 		s obj.STARTDATE=$lg(stream,14)
+		 		s obj.STRUCNUM=$lg(stream,15)
+		 		s obj.STRSTATUS=$lg(stream,16)
+		 		s obj.TERRIFNSFL=$lg(stream,17)
+		 		s obj.TERRIFNSUL=$lg(stream,18)
+		 		s obj.UPDATEDATE=$lg(stream,19)
+		 		s obj.NORMDOC=$lg(stream,20)
+		 		s obj.COUNTER=$lg(stream,21)
+				d obj.%Save()
+		}
+	}
+]]></Implementation>
+</Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>

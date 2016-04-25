@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Utils.SourseExport">
+<TimeCreated>63790,50663.079111</TimeCreated>
+
+<Method name="Export">
+<Description>
+Экспорт указанных классов (и/или рутин) в xml а потом в запароленный архив
+classnames - одно или несколько имён классов разделённые запятой
+например: "User.Myclass.cls,User.MyClass2.cls"</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>classnames:%String=""</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	s Archiver = "C:\Program Files\7-Zip\7z.exe"
+	s password = "vedro"
+	s XmlExportFilename = "C:\Users\olga\Desktop\zz.xml"
+	s ZipExportFilename = "C:\Users\olga\Desktop\ExportCache.zip"
+	
+	if '##class(%File).Exists(Archiver) q "Не найден файл архиватор "_Archiver
+	
+	//экспортируем указанные элементы
+	s ok = $system.OBJ.Export(classnames,XmlExportFilename)
+	if '+ok q $$GetOneErrorText^%apiOBJ(ok,1)
+	
+	//составим командную строку архивации и выполним её
+
+	s CommandString=Archiver_"  a -tzip -ssw -mx7 -r0"_ZipExportFilename_" "_XmlExportFilename
+	d $ZF(-1,CommandString)
+	
+	q 1
+]]></Implementation>
+</Method>
+
+<Method name="Import">
+<Description>
+Импорт классов из zip архива и сокрытие импортированных классов 
+filename - запароленный zip файл в котором zz.xml с классами</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>filename:%String=""</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	
+	s Archiver = "C:\Program Files\7-Zip\7z.exe"
+	s TempDir = "c:\temp"	//тут бы конечно использовать виндовую переменную %TMP% но я не знаю как это сделать
+	s XmlFile = "zz.xml"
+	
+	if filename="" q "Не указан файл для импорта"	
+	if '##class(%File).Exists(filename) q "Не найден файл импорта "_filename
+	if '##class(%File).Exists(Archiver) q "Не найден файл архиватора "_Archiver
+	//составим командную строку распаковки и выполним её
+	s CommandString=Archiver_" x -r -aoa -o"""_TempDir_""""_" """_filename_""""
+	d $ZF(-1,CommandString)
+
+	if '##class(%File).Exists(TempDir_"\"_XmlFile) q "Не найден импортируемый файл "_TempDir_"\"_XmlFile
+	
+	//импортируем распакованный xml
+	s ok = $system.OBJ.Load(TempDir_"\"_XmlFile,"ck",.p1,.p2)
+	if '+ok q $$GetOneErrorText^%apiOBJ(ok,1)
+
+	//удалим xml файл
+	s ok=##class(%File).Delete(TempDir_"\"_XmlFile)
+	//даже если не смогли удалить, всё равно скрываем классы и молчим в тряпочку	
+	
+	//теперь скроем импортированные классы
+	//цикл по названиям импортированных элементов
+	f i=1:1:$L(p2,",") d
+	. s element=$P(p2,",",i)
+	. //пропускаем всё кроме классов
+	. q:$P(element,".",$L(element,".")'="cls")	
+	. s ok = $system.OBJ.MakeClassDeployed($P(element,".",1,$L(element,".")-1))
+	. if '+ok w $$GetOneErrorText^%apiOBJ(ok,1),!
+	
+	q 1
+]]></Implementation>
+</Method>
+
+<Method name="Deploy">
+<Description>
+Импорт классов из zip архива и сокрытие импортированных классов 
+filename - запароленный zip файл в котором zz.xml с классами</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>list:%String=""</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	f i=1:1:$L(list,",") {	
+	 d $system.OBJ.MakeClassDeployed($P(list,",",i))
+	}
+]]></Implementation>
+</Method>
+</Class>
+</Export>

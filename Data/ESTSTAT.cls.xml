@@ -28,6 +28,24 @@
 <Relationship>1</Relationship>
 </Property>
 
+<Method name="Input">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	do ##class(p6.Dbf).ReadFile("d:\fias_delta_dbf\ESTSTAT.dbf")
+	for i=1:1:4 {
+			set stream =  ^||dbf("row",i)
+	 		s obj=##class(Data.ESTSTAT).%New()
+	 		s obj.ESTSTATID=$lg(stream,1)
+	 		s obj.NAME=$lg(stream,2)
+			s obj.SHORTNAME=$lg(stream,3)
+			d obj.%Save()
+	}
+	
+	quit $$$OK
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.ESTSTATD</DataLocation>

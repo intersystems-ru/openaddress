@@ -10,77 +10,66 @@
 <Description>
 Глобальный уникальный идентификатор адресного объекта</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="FORMALNAME">
 <Description>
 Формализованное наименование</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="REGIONCODE">
 <Description>
 Код региона</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="AUTOCODE">
 <Description>
 Код автономии</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="AREACODE">
 <Description>
 Код района</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="CITYCODE">
 <Description>
 Код города</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="CTARCODE">
 <Description>
 Код внутригородского района</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="PLACECODE">
 <Description>
 Код населенного пункта</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="STREETCODE">
 <Description>
 Код улицы</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="EXTRCODE">
 <Description>
 Код дополнительного адресообразующего элемента</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="SEXTCODE">
 <Description>
 Код подчиненного дополнительного адресообразующего элемента</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="OFFNAME">
@@ -135,7 +124,6 @@ OKTMO</Description>
 <Description>
 Дата  внесения записи</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="SHORTNAME">
@@ -148,7 +136,6 @@ OKTMO</Description>
 <Description>
 Уровень адресного объекта</Description>
 <Type>%Integer</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="PARENTGUID">
@@ -227,14 +214,12 @@ OKTMO</Description>
 <Description>
 Начало действия записи</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="ENDDATE">
 <Description>
 Окончание действия записи</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="NORMDOC">
@@ -248,6 +233,54 @@ OKTMO</Description>
 Признак действующего адресного объекта</Description>
 <Type>%Integer</Type>
 </Property>
+
+<Method name="Input">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+		do ##class(p6.Dbf).ReadFile("d:\fias_delta_dbf\ADDROBJ.dbf")
+		for i=1:1:51644 {
+				set stream =  ^||dbf("row",i)
+		 		s obj=##class(Data.ADDROBJ).%New()
+		 		s obj.ACTSTATUS=$lg(stream,1)
+		 		s obj.AOGUID=$lg(stream,2)
+		 		s obj.AOID=$lg(stream,3)
+		 		s obj.AOLEVEL=$lg(stream,4)
+		 		s obj.AREACODE=$lg(stream,5)
+		 		s obj.AUTOCODE=$lg(stream,6)
+		 		s obj.CENTSTATUS=$lg(stream,7)
+		 		s obj.CITYCODE=$lg(stream,8)
+		 		s obj.CODE=$lg(stream,9)
+		 		s obj.CURRSTATUS=$lg(stream,10)
+		 		s obj.ENDDATE=$lg(stream,11)
+		 		s obj.FORMALNAME=$lg(stream,12)
+		 		s obj.IFNSFL=$lg(stream,13)
+		 		s obj.IFNSUL=$lg(stream,14)
+		 		s obj.NEXTID=$lg(stream,15)
+		 		s obj.OFFNAME=$lg(stream,16)
+		 		s obj.OKATO=$lg(stream,17)
+		 		s obj.OKTMO=$lg(stream,18)
+		 		s obj.OPERSTATUS=$lg(stream,19)
+		 		s obj.PARENTGUID=$lg(stream,20)
+		 		s obj.PLACECODE=$lg(stream,21)
+		 		s obj.PLAINCODE=$lg(stream,22)
+		 		s obj.POSTALCODE=$lg(stream,23)
+		 		s obj.REGIONCODE=$lg(stream,24)
+		 		s obj.SHORTNAME=$lg(stream,25)
+		 		s obj.STARTDATE=$lg(stream,26)
+		 		s obj.STREETCODE=$lg(stream,27)
+		 		s obj.TERRIFNSFL=$lg(stream,28)
+		 		s obj.TERRIFNSUL=$lg(stream,29)
+		 		s obj.UPDATEDATE=$lg(stream,30)
+		 		s obj.CTARCODE=$lg(stream,31)
+		 		s obj.EXTRCODE=$lg(stream,32)
+		 		s obj.SEXTCODE=$lg(stream,33)
+		 		s obj.LIVESTATUS=$lg(stream,34)
+		 		s obj.NORMDOC=$lg(stream,35)	
+				d obj.%Save()
+		}
+]]></Implementation>
+</Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>

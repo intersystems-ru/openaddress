@@ -22,6 +22,23 @@
 <Relationship>1</Relationship>
 </Property>
 
+<Method name="Input">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	do ##class(p6.Dbf).ReadFile("d:\fias_delta_dbf\HSTSTAT.dbf")
+	for i=1:1:43 {
+			set stream =  ^||dbf("row",i)
+	 		s obj=##class(Data.HSTSTAT).%New()
+	 		s obj.HOUSESTID=$lg(stream,1)
+	 		s obj.NAME=$lg(stream,2)
+			d obj.%Save()
+	}
+	
+	quit $$$OK
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>{%%PARENT}("STATSTATUS")</DataLocation>
@@ -30,8 +47,6 @@
 <IndexLocation>^Data.HSTSTATI</IndexLocation>
 <StreamLocation>^Data.HSTSTATS</StreamLocation>
 <Data name="HSTSTATDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>

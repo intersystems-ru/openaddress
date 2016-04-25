@@ -102,6 +102,35 @@ ENDDATE</Description>
 <Type>%String</Type>
 </Property>
 
+<Method name="Input">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	do ##class(p6.Dbf).ReadFile("d:\fias_delta_dbf\LANDMARK.dbf")
+	for i=1:1:64 {
+			set stream =  ^||dbf("row",i)
+	 		s obj=##class(Data.LANDMARK).%New()
+	 		s obj.AOGUID=$lg(stream,1)
+	 		s obj.ENDDATE=$lg(stream,2)
+			s obj.IFNSFL=$lg(stream,3)
+			s obj.IFNSUL=$lg(stream,4)
+			s obj.LANDGUID=$lg(stream,5)
+			s obj.LOCATION=$lg(stream,6)
+			s obj.OKATO=$lg(stream,7)
+			s obj.POSTALCODE=$lg(stream,8)
+			s obj.STARTDATE=$lg(stream,9)
+			s obj.TERRIFNSFL=$lg(stream,10)
+			s obj.TERRIFNSUL=$lg(stream,11)
+			s obj.UPDATEDATE=$lg(stream,12)
+			s obj.OKTMO=$lg(stream,13)
+			s obj.NORMDOC=$lg(stream,14)
+			d obj.%Save()
+	}
+	
+	quit $$$OK
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.LANDMARKD</DataLocation>

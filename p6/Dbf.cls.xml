@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="p6.Dbf">
+<Description><![CDATA[
+Класс предназначен для работы с файлами <b>DBF</b> формата <i>dBASE III PLUS without a memo</i> в кодировке <b>CP1251</b>.
+<br>Структуру <b>DBF</b> можно найти на <a href="http://www.wotsit.org/" target="_blank">http://www.wotsit.org/</a>
+<br><br>Авторы:<ul><li>dimas 2003, <u>shu</u> 031012, 060620;</li><li><u>servit</u> 2010;</li></ul>
+Формат глобального массива <b>^||dbf</b>, в котором хранятся заголовок и данные:
+<br><ul><li><b>^||dbf("header")</b> - <заголовок>
+<br>в формате <i>$list($list(varName1,length1,type1,dec1),...,$list(varNameN,lengthN,typeN,decN))</i></li>
+<br><li><b>^||dbf("row",<номер записи>)</b> - <запись>
+<br>в формате <i>$list(var1,...,varN)</i></li></ul>
+<h4>Примеры использования</h4>
+<ol>
+<li>Запись в файл:</li>
+<example>
+kill ^||dbf
+	
+; описание полей
+set ^||dbf("header")=
+$listbuild(
+ $listbuild("f1","C",3),
+ $listbuild("f2","N",6),
+ $listbuild("f3","N",9,2),
+ $listbuild("f4","C",3),
+ $listbuild("f5","D",8)
+)
+	
+; строки данных в файл
+set ^||dbf("row",1)=$listbuild("фя"_$char(9,9,9,9),123,1231.23,"f4",$ZDH("2000-10-22",3))
+set ^||dbf("row",2)=$listbuild(1,2,333.33,4,$ZDH("2014-09-15",3))
+set ^||dbf("row",3)=$listbuild(11,22,123,44,50000)
+	
+write !,"Формирование dbf"
+do ##class(p6.Dbf).WriteFile("c:\prov1.dbf")
+</example>
+<li>Чтение из файла:</li>
+<example>
+write !,"Чтение dbf",!
+do ##class(p6.Dbf).ReadFile("c:\prov1.dbf")
+zwrite ^||dbf
+do ##class(p6.Dbf).ReadFile("D:\ACTSTAT.DBF")
+zwrite ^||dbf
+</example>
+</ol>]]></Description>
+<Super>%RegisteredObject</Super>
+<TimeCreated>59188,78773.488</TimeCreated>
+
+<Method name="WriteFile">
+<Description><![CDATA[
+- запись данных в <b>DBF</b> файл.
+<br>Параметры:
+<br><var>fileName</var> - имя файла.]]></Description>
+<Final>1</Final>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>fileName:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	quit:fileName="" $$$ERROR($$$GeneralError,"Имя файла не задано!")
+	
+	; открытие нового файла
+	set file=##class(%FileBinaryStream).%New()
+	set file.Filename=fileName
+	$$$QuitOnError(..WriteStream(.file))
+	$$$QuitOnError(file.SaveStream())
+	quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="WriteStream">
+<Description><![CDATA[
+- запись данных в поток.
+<br>Параметры:
+<br><var>stream</var> - поток.]]></Description>
+<Final>1</Final>
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[&stream:%Stream]]></FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	quit:stream=$$$NULLOREF $$$ERROR($$$GeneralError,"неверный поток")
+	
+	set fldList=^||dbf("header")
+	set fldQty=$listlength(fldList) ; количество полей
+	quit:fldQty=0 $$$ERROR($$$GeneralError,"неверное описание полей")
+
+	; заголовок (1 байт)
+	do stream.Write($char(3)) ; dBASE III PLUS without a memo
+	
+	; дата последнего обновления YYMMDD (3 байта)
+	set date=$zdate(+$horolog,8)
+	do stream.Write($char(+$extract(date,3,4))) ; год (1 байт)
+	do stream.Write($char(+$extract(date,5,6))) ; месяц (1 байт)
+	do stream.Write($char(+$extract(date,7,8))) ; число (1 байт)
+
+	; 32-битное число - количество записей (4 байта)
+	set nz=0,nzi="" 
+	for  {
+		set nzi=$order(^||dbf("row",nzi))
+		quit:nzi=""
+		set nz=nz+1
+	}
+	do stream.Write($zlchar(nz))
+	
+	; структура записей
+	do ..WriteStructure(stream, fldList) ; заголовок dbf в файл
+		
+	; перечень и свойства полей в записи по порядку
+	for i=1:1:fldQty {
+		set fldProperty=$listget(fldList,i)
+		set fldArray(i,"name")=$listget(fldProperty,1)
+		set fldArray(i,"type")=$listget(fldProperty,2)
+		set fldArray(i,"length")=$listget(fldProperty,3)
+		set fldArray(i,"dec")=$listget(fldProperty,4)
+	}
+
+	; вывод записей
+	set nzi="" 
+	for  {
+		set nzi=$order(^||dbf("row",nzi),1,z) quit:nzi=""
+		
+		; добавление записи в dbf
+		do stream.Write($char(32)) ; признак удаления записи (1 байт)
+		
+		; формирование значений полей
+		for i=1:1:fldQty {
+			set fldValue = $listget(z,i)
+			if (fldArray(i,"type")="D") {
+				do stream.Write($select(fldValue?5.6n:$zdate(fldValue,8),1:$justify("",8))) ; тип "дата" (8 байт)
+			}elseif (fldArray(i,"type")="N") {
+				do stream.Write($justify(fldValue,fldArray(i,"length"),fldArray(i,"dec"))) ; тип "число"
+			}else {
+				set fldValue=fldValue_$justify("",fldArray(i,"length")-$length(fldValue)) ; остаток строки дополняем пробелами
+				set fldValue=$extract($zconvert(fldValue,"O","CP1251"),1,fldArray(i,"length")) ; обрезаем строку по её длине
+				do stream.Write(fldValue)
+			}
+		}
+	}
+	; признак окончания файла
+	do stream.Write($char(26))
+	quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="WriteStructure">
+<Description><![CDATA[
+- запись заголовка в поток.
+<br>Параметры:
+<br><var>stream</var> - поток;
+<br><var>header</var> - заголовок.]]></Description>
+<Internal>1</Internal>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>stream:%Stream,header:%String</FormalSpec>
+<Private>1</Private>
+<Implementation><![CDATA[
+	set fldQty=$listlength(header) ; количество полей
+
+	; 8-9 16-битное число - число байт в заголовке (2 байта)
+	do stream.Write($zwchar((fldQty+1)*32+2))
+	
+	; 10-11 16-битное число - число байт в записи, включая один байт на признак удаления (2 байта)
+	set rowLength=1
+	for i=1:1:fldQty set rowLength=rowLength+$listget($listget(header,i),3)
+	do stream.Write($zwchar(rowLength))
+
+	; 12-31 зарезервировано (20 байт)
+	do stream.Write($char(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0))
+	
+	; общая длина полей - 32 байта
+	for i=1:1:fldQty {
+		set fld = $listget(header,i)
+		set fldName=$zconvert($zconvert($listget(fld,1),"U"),"O","CP866")
+
+		do stream.Write($translate(fldName_$justify("",11-$length(fldName))," ",$char(0))) ; имя столбца (11 байт); дополнение имени столбца $c(0)
+		do stream.Write($listget(fld,2)) ; тип (1 байт)
+		do stream.Write($zlchar(0)) ; адрес в памяти (4 байта)
+		do stream.Write($char(+$listget(fld,3))) ; длина поля (1 байт)
+		do stream.Write($char(+$listget(fld,4))) ; длина после точки (1 байт)
+		do stream.Write($char(0,0,0,0,0,0,0,0,0,0,0,0,0,0)) ; резерв (14 байт)
+	}
+	do stream.Write($char(13,0)) ; конец описания структуры (2 байта)
+]]></Implementation>
+</Method>
+
+<Method name="ReadFile">
+<Description><![CDATA[
+- чтение данных из <b>DBF</b> файла.
+<br>Параметры:
+<br><var>fileName</var> - имя файла.]]></Description>
+<Final>1</Final>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>fileName:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	quit:fileName="" $$$ERROR($$$GeneralError,"неверное имя файла")
+	
+	; открытие файла
+	set file=##class(%FileBinaryStream).%New()
+	set file.Filename=fileName
+	
+	; заголовок (1 байт)
+	; дата последнего обновления YYMMDD (3 байта)
+	; 32-битное число - количество записей (4 байта)
+	do file.Read(8) 
+	
+	; чтение структуры записей
+	set fldList=..ReadStructure(file,.rowLength) ; получение структуры dbf
+	set fldQty=$listlength(fldList) ; количество полей
+	quit:fldQty=0 $$$ERROR($$$GeneralError,"неверное описание полей")
+	kill ^||dbf
+	set ^||dbf("header")=fldList
+	
+	; длина и структура записи
+	kill fldArray
+	for i=1:1:fldQty {
+		set fldProperty=$listget(fldList,i)
+		set fldArray(i,"name")=$listget(fldProperty,1)
+		set fldArray(i,"type")=$listget(fldProperty,2)
+		set fldArray(i,"length")=$listget(fldProperty,3)
+		set fldArray(i,"dec")=$listget(fldProperty,4)
+	}
+	
+	set nzi=0 
+	for  {
+		set z=file.Read(rowLength)
+		quit:$length(z)<rowLength ; закончился файл
+		continue:$extract(z)'=" " ; признак удалённой записи
+		
+		; формирование значений полей
+		set zList = "" ; строка в массив
+		set zBegin = 1
+		for i=1:1:fldQty {
+			set zEnd = zBegin + fldArray(i,"length") - 1 ; позиции поля
+			set fldRead = $extract(z,zBegin,zEnd)
+			if (fldArray(i,"type")="D") {
+				set fldRead = $translate(fldRead," ","")
+				set:fldRead?8n fldRead = $zdateh(fldRead,8) ; перевод dbf формата
+			}elseif (fldArray(i,"type")="N") {
+				set fldRead = +$translate(fldRead," ","")
+			}else {
+				&sql(select rtrim(:fldRead) into :fldRead)
+				set fldRead=$zconvert(fldRead,"I","CP866")	
+			}
+			set zList = zList_$listbuild(fldRead)
+			set zBegin = zEnd+1
+		}
+		set nzi = nzi + 1 ; номер записи
+		set ^||dbf("row",nzi) = zList
+	}
+	quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="ReadStructure">
+<Description><![CDATA[
+- чтение заголовка из потока.
+<br>Параметры:
+<br><var>stream</var> - поток;
+<br><var>rowLength</var> - длина записи (в байтах).]]></Description>
+<Internal>1</Internal>
+<ClassMethod>1</ClassMethod>
+<FormalSpec><![CDATA[stream:%Stream,&rowLength:%Integer]]></FormalSpec>
+<Private>1</Private>
+<ReturnType>%List</ReturnType>
+<Implementation><![CDATA[
+	set fldList = "" ; список полей
+
+	; 8-9 16-битное число - число байт в заголовке (2 байта)
+	set fldQty=$zwascii(stream.Read(2))\32-1 ; количество полей
+
+	; 10-11 16-битное число - число байт в записи, включая один байт на признак удаления (2 байта)
+	set rowLength=$zwascii(stream.Read(2)) 
+	
+	; 12-31 зарезервировано (20 байт)
+	do stream.Read(20)
+
+	; общая длина полей - 32 байта
+	for i=1:1:fldQty {
+		set fldName  = $zconvert($translate(stream.Read(11),$char(0),""),"I","CP866") ; имя (11 байт)
+		set fldType = stream.Read(1) ; тип (1 байт)
+		do stream.Read(4) ; адрес в памяти (4 байта)
+		set fldLength = $ascii(stream.Read(1)) ; длина (1 байт)
+		set fldDec = $ascii(stream.Read(1)) ; длина после точки (1 байт)
+		do stream.Read(14) ; резерв (14 байт)
+		set fldProperty = $listbuild(fldName,fldType,fldLength,fldDec)
+		set fldList = fldList_$listbuild(fldProperty) ; список полей
+	}
+	do stream.Read(2) ; конец описания структуры (2 байта)
+	quit fldList
+]]></Implementation>
+</Method>
+
+<Method name="TestSave">
+<Description><![CDATA[
+- проверка формирования <b>DBF</b>.]]></Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>*fileName:%String(MAXLEN=32000)</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	#dim ex As %Exception.AbstractException
+	set res=$$$OK
+	try{
+		kill ^||dbf
+
+		; описание полей
+		set ^||dbf("header")=
+		$listbuild(
+			$listbuild("поле","C",3),
+			$listbuild("f2","N",6),
+			$listbuild("f3","N",9,2),
+			$listbuild("f4","C",3),
+			$listbuild("f5","D",8)
+		)
+
+		; строки данных в файл
+		set ^||dbf("row",1)=$listbuild("фя"_$char(9,9,9,9),123,1231.23,"f4",$ZDH("2000-10-22",3))
+		set ^||dbf("row",2)=$listbuild(1,2,333.33,4,$ZDH("2014-09-15",3))
+		set ^||dbf("row",3)=$listbuild(11,22,123,44,50000)
+
+		set fileName=##class(%File).TempFilename("dbf")
+		write !,$$$FormatText("Формирование файла %1",$$$quote(fileName))
+		$$$ThrowOnError(..WriteFile(fileName))
+	}catch ex{
+		set fileName=""
+		set res=ex.AsStatus()
+		write !,"Ошибка теста записи:",!,$system.Status.GetErrorText(ex.AsStatus()),!
+	}
+	quit res
+]]></Implementation>
+</Method>
+
+<Method name="TestOpen">
+<Description><![CDATA[
+- проверка записи/чтения <b>DBF</b> (просмотр в терминале).]]></Description>
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	#dim ex As %Exception.AbstractException
+	try{
+		$$$ThrowOnError(..TestSave(.fileName))
+		write !,"Чтение файла "_$$$quote(fileName),!
+		$$$ThrowOnError(..ReadFile(fileName))
+		zwrite ^||dbf
+	}catch ex{
+		write !,"Ошибка теста чтения:",!,$system.Status.GetErrorText(ex.AsStatus()),!
+	}
+	do ##class(%File).Delete(fileName)
+]]></Implementation>
+</Method>
+</Class>
+</Export>

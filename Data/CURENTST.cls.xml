@@ -22,6 +22,23 @@
 <Relationship>1</Relationship>
 </Property>
 
+<Method name="Input">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	do ##class(p6.Dbf).ReadFile("d:\fias_delta_dbf\CURENTST.dbf")
+	for i=1:1:100 {
+			set stream =  ^||dbf("row",i)
+	 		s obj=##class(Data.CURENTST).%New()
+	 		s obj.CURENTSTID=$lg(stream,1)
+	 		s obj.NAME=$lg(stream,2)
+			d obj.%Save()
+	}
+	
+	quit $$$OK
+]]></Implementation>
+</Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.CURENTSTD</DataLocation>
