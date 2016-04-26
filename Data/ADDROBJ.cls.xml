@@ -236,9 +236,10 @@ OKTMO</Description>
 
 <Method name="Input">
 <ClassMethod>1</ClassMethod>
+<FormalSpec>dir</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-		do ##class(p6.Dbf).ReadFile("d:\fias_delta_dbf\ADDROBJ.dbf")
+		do ##class(p6.Dbf).ReadFile(dir_"ADDROBJ.dbf")
 		for i=1:1:51644 {
 				set stream =  ^||dbf("row",i)
 		 		s obj=##class(Data.ADDROBJ).%New()

@@ -38,7 +38,8 @@
 	Set count=0		  	
 	
 	///Так и не разобрался куда сохраняет файл данный код; $PIECE(url,"/",*+count) возвращает просто имя файла без пути, а по заданию нужно, чтобы сохранение производилось в C:\temp\, поэтому предлагаю следующий вариант: Set stream.Filename= "C:\temp\"_$PIECE(url,"/",*+count)
-	Set stream.Filename="C:\temp\"_$PIECE(url,"/",*)	
+	s dir = $$defdir^%GLO("OPENADDRESS")
+	Set stream.Filename=dir_$PIECE(url,"/",*)	
 	
 	///Понял, что это перемотка потока в начало, но не понял, зачем она нужна =)
 	Do httprequest.HttpResponse.Data.Rewind()
@@ -50,6 +51,16 @@
 	Set sc=stream.%Save()
 	if $$$ISERR(sc) {
 		w "Ошибка при попытке сохранить архив."
+		q 0
+	}
+	s sc = ..UnZip(dir_"fias", stream.Filename)
+	if $$$ISERR(sc) {
+		w "Ошибка при попытке распаковать архив."
+		q 0
+	}
+	s sc = ..Import(dir_"fias")
+	if $$$ISERR(sc) {
+		w "Ошибка при попытке импортирвоать данные."
 		q 0
 	}
 	q 1
@@ -68,13 +79,11 @@
 	if selectId > currId { 
 		TSTART	
 		s res = ..Load($p(info.FiasDeltaDbfUrl,"/",4,7))		
-		if res = 1 {
+		if res = 1 {						
 			s version = ##class(Data.VersionInfo).%New()
 			s version.VersionId = selectId //лучше преобразовать в integer
 			s version.VersionName = info.TextVersion
-			d version.%Save()
-			//d ..Import()
-			
+			d version.%Save()						
 			TCOMMIT
 		} else {
 			TROLLBACK	
@@ -87,15 +96,35 @@
 
 <Method name="UnZip">
 <ClassMethod>1</ClassMethod>
-<FormalSpec>file</FormalSpec>
+<FormalSpec>dir,file</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	s Archiver = "C:\Soft\7-Zip\7z.exe"
-	s TempDir = "c:\temp\"
-	s CommandString=Archiver_" x -r -aoa -o"""_TempDir_""" "_" """_file_""""
-	s st = $ZF(-1,CommandString)
-	w CommandString
+	/*s Archiver = "C:\Program Files\7-Zip\7z.exe"	
+	s CommandString=Archiver_" x -r -aoa -o"""_dir_""" "_" """_file_""""*/
+	s CommandString = "unrar e "_file_" "_dir
+	s st = $ZF(-1,CommandString)	
 	q st
+]]></Implementation>
+</Method>
+
+<Method name="Import">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>dir</FormalSpec>
+<Implementation><![CDATA[
+	d ##class(Data.ACTSTAT).Input(dir)
+	d ##class(Data.ADDROBJ).Input(dir)
+	d ##class(Data.CENTERST).Input(dir)
+	d ##class(Data.CURENTST).Input(dir)
+	d ##class(Data.ESTSTAT).Input(dir)
+	d ##class(Data.HOUSE).Input(dir)
+	d ##class(Data.HSTSTAT).Input(dir)
+	d ##class(Data.INTVSTAT).Input(dir)
+	d ##class(Data.LANDMARK).Input(dir)
+	d ##class(Data.NDOCTYPE).Input(dir)
+	d ##class(Data.NORMDOC).Input(dir)
+	d ##class(Data.OPERSTAT).Input(dir)
+	d ##class(Data.SOCRBASE).Input(dir)
+	d ##class(Data.STRSTAT).Input(dir)
 ]]></Implementation>
 </Method>
 </Class>

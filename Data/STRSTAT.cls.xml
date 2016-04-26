@@ -28,9 +28,10 @@
 
 <Method name="Input">
 <ClassMethod>1</ClassMethod>
+<FormalSpec>dir</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	do ##class(p6.Dbf).ReadFile("c:\STRSTAT.dbf")
+	do ##class(p6.Dbf).ReadFile(dir_"STRSTAT.dbf")
 	for i=1:1:4 {
 			set stream =  ^||dbf("row",i)
 	 		s obj=##class(Data.STRSTAT).%New()
@@ -43,7 +44,6 @@
 	quit $$$OK
 ]]></Implementation>
 </Method>
-
 
 <UDLText name="T">
 <Content><![CDATA[
@@ -105,6 +105,7 @@
     //Do reader.Rewind() стоит ли добавить?
 ]]></Implementation>
 </Method>
+
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
 <DataLocation>^Data.STRSTATD</DataLocation>

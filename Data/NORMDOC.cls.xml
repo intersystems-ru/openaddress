@@ -48,10 +48,11 @@
 
 <Method name="Input">
 <ClassMethod>1</ClassMethod>
+<FormalSpec>dir</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	for j=1:1:99 {
-		do ##class(p6.Dbf).ReadFile("d:\fias_delta_dbf\NORMDOC"_j_".dbf")
+		do ##class(p6.Dbf).ReadFile(dir_"NORMDOC"_j_".dbf")
 		for i=1:1:($listlength(^||dbf("header"))) {
 				set stream =  ^||dbf("row",i)
 		 		s obj=##class(Data.NORMDOC).%New()
