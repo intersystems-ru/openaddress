@@ -30,13 +30,17 @@
 <Type>%String</Type>
 </Property>
 
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship DOCTYPE As Data.NDOCTYPE [ Cardinality = children, Inverse = NDTYPEID ];
+
+]]></Content>
+</UDLText>
+
 <Property name="DOCTYPE">
 <Description>
 Тип документа</Description>
-<Type>Data.NDOCTYPE</Type>
-<Cardinality>children</Cardinality>
-<Inverse>NDTYPEID</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Property name="DOCIMGID">
@@ -52,7 +56,9 @@
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	for j=1:1:99 {
-		do ##class(p6.Dbf).ReadFile(dir_"NORMDOC"_j_".dbf")
+		s num = ""
+		if $l(j) = 1 s num = "0"_j
+		do ##class(p6.Dbf).ReadFile(dir_"NORMDOC"_num_".dbf")
 		for i=1:1:($listlength(^||dbf("header"))) {
 				set stream =  ^||dbf("row",i)
 		 		s obj=##class(Data.NORMDOC).%New()
@@ -92,6 +98,9 @@
 </Value>
 <Value name="6">
 <Value>NORMDOCID</Value>
+</Value>
+<Value name="7">
+<Value>DOCTYPE</Value>
 </Value>
 </Data>
 </Storage>

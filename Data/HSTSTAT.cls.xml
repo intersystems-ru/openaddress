@@ -10,16 +10,12 @@
 <Description>
 Наименование</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="HOUSESTID">
 <Description>
 Идентификатор статуса</Description>
-<Type>Data.HOUSE</Type>
-<Cardinality>parent</Cardinality>
-<Inverse>STATSTATUS</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Method name="Input">
@@ -42,17 +38,22 @@
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
-<DataLocation>{%%PARENT}("STATSTATUS")</DataLocation>
+<DataLocation>^Data.HSTSTATD</DataLocation>
 <DefaultData>HSTSTATDefaultData</DefaultData>
-<IdLocation>^Data.HOUSEC("STATSTATUS")</IdLocation>
+<IdLocation>^Data.HSTSTATD</IdLocation>
 <IndexLocation>^Data.HSTSTATI</IndexLocation>
 <StreamLocation>^Data.HSTSTATS</StreamLocation>
 <Data name="HSTSTATDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
 <Value name="2">
 <Value>NAME</Value>
+</Value>
+<Value name="3">
+<Value>HOUSESTID</Value>
 </Value>
 </Data>
 </Storage>

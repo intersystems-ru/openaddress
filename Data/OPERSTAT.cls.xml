@@ -10,16 +10,12 @@
 <Description>
 Наименование</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="OPERSTATID">
 <Description>
 Идентификатор статуса (ключ)</Description>
-<Type>Data.ADDROBJ</Type>
-<Cardinality>parent</Cardinality>
-<Inverse>OPERSTATUS</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Method name="Input">
@@ -42,17 +38,22 @@
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
-<DataLocation>{%%PARENT}("OPERSTATUS")</DataLocation>
+<DataLocation>^Data.OPERSTATD</DataLocation>
 <DefaultData>OPERSTATDefaultData</DefaultData>
-<IdLocation>^Data.ADDROBJC("OPERSTATUS")</IdLocation>
+<IdLocation>^Data.OPERSTATD</IdLocation>
 <IndexLocation>^Data.OPERSTATI</IndexLocation>
 <StreamLocation>^Data.OPERSTATS</StreamLocation>
 <Data name="OPERSTATDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
 <Value name="2">
 <Value>NAME</Value>
+</Value>
+<Value name="3">
+<Value>OPERSTATID</Value>
 </Value>
 </Data>
 </Storage>

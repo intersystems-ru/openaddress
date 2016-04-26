@@ -10,16 +10,12 @@
 <Description>
 Наименование</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="INTVSTATID">
 <Description>
 Идентификатор статуса(обычный, четный, нечетный)</Description>
-<Type>Data.HOUSEINT</Type>
-<Cardinality>parent</Cardinality>
-<Inverse>INTSTATUS</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Method name="Input">
@@ -31,7 +27,7 @@
 	for i=1:1:4 {
 			set stream =  ^||dbf("row",i)
 	 		s obj=##class(Data.INTVSTAT).%New()
-	 		s obj.ID=$lg(stream,1)
+	 		s obj.INTVSTATID=$lg(stream,1)
 	 		s obj.NAME=$lg(stream,2)
 			d obj.%Save()
 	}
@@ -42,17 +38,22 @@
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
-<DataLocation>{%%PARENT}("INTSTATUS")</DataLocation>
+<DataLocation>^Data.INTVSTATD</DataLocation>
 <DefaultData>INTVSTATDefaultData</DefaultData>
-<IdLocation>^Data.HOUSEINTC("INTSTATUS")</IdLocation>
+<IdLocation>^Data.INTVSTATD</IdLocation>
 <IndexLocation>^Data.INTVSTATI</IndexLocation>
 <StreamLocation>^Data.INTVSTATS</StreamLocation>
 <Data name="INTVSTATDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
 <Value name="2">
 <Value>NAME</Value>
+</Value>
+<Value name="3">
+<Value>INTVSTATID</Value>
 </Value>
 </Data>
 </Storage>

@@ -10,16 +10,12 @@
 <Description>
 Наименование</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="NDTYPEID">
 <Description>
 Наименование типа нормативного документа</Description>
-<Type>Data.NORMDOC</Type>
-<Cardinality>parent</Cardinality>
-<Inverse>DOCTYPE</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Method name="Input">
@@ -42,17 +38,22 @@
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
-<DataLocation>{%%PARENT}("DOCTYPE")</DataLocation>
+<DataLocation>^Data.NDOCTYPED</DataLocation>
 <DefaultData>NDOCTYPEDefaultData</DefaultData>
-<IdLocation>^Data.NORMDOCC("DOCTYPE")</IdLocation>
+<IdLocation>^Data.NDOCTYPED</IdLocation>
 <IndexLocation>^Data.NDOCTYPEI</IndexLocation>
 <StreamLocation>^Data.NDOCTYPES</StreamLocation>
 <Data name="NDOCTYPEDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
 <Value name="2">
 <Value>NAME</Value>
+</Value>
+<Value name="3">
+<Value>NDTYPEID</Value>
 </Value>
 </Data>
 </Storage>

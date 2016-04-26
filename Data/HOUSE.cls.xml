@@ -60,13 +60,17 @@ OKTMO</Description>
 <Type>%String</Type>
 </Property>
 
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship ESTSTATUS As Data.ESTSTAT [ Cardinality = children, Inverse = ESTSTATID ];
+
+]]></Content>
+</UDLText>
+
 <Property name="ESTSTATUS">
 <Description>
 Признак владения</Description>
-<Type>Data.ESTSTAT</Type>
-<Cardinality>children</Cardinality>
-<Inverse>ESTSTATID</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Property name="BUILDNUM">
@@ -84,7 +88,7 @@ OKTMO</Description>
 <Property name="STRSTATUS">
 <Description>
 Признак строения</Description>
-<Type>%Integer</Type>
+<Type>%String</Type>
 </Property>
 
 <Property name="HOUSEID">
@@ -117,13 +121,17 @@ ENDDATE</Description>
 <Type>%String</Type>
 </Property>
 
+<UDLText name="T">
+<Content><![CDATA[
+// Relationship STATSTATUS As Data.HSTSTAT [ Cardinality = children, Inverse = HOUSESTID ];
+
+]]></Content>
+</UDLText>
+
 <Property name="STATSTATUS">
 <Description>
 Состояние дома</Description>
-<Type>Data.HSTSTAT</Type>
-<Cardinality>children</Cardinality>
-<Inverse>HOUSESTID</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Property name="NORMDOC">
@@ -135,7 +143,7 @@ ENDDATE</Description>
 <Property name="COUNTER">
 <Description>
 Счетчик записей домов для КЛАДР 4</Description>
-<Type>%Integer</Type>
+<Type>%String</Type>
 </Property>
 
 <Method name="Input">
@@ -144,7 +152,9 @@ ENDDATE</Description>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	for j=1:1:91 {
-		do ##class(p6.Dbf).ReadFile(dir_"HOUSE"_j_".dbf")
+		s num = ""
+		if $l(j) = 1 s num = "0"_j			
+		do ##class(p6.Dbf).ReadFile(dir_"HOUSE"_num_".DBF")
 		for i=1:1:($listlength(^||dbf("header"))) {
 				set stream =  ^||dbf("row",i)
 		 		s obj=##class(Data.HOUSE).%New()
@@ -172,6 +182,55 @@ ENDDATE</Description>
 				d obj.%Save()
 		}
 	}
+]]></Implementation>
+</Method>
+
+<Method name="Import">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>dir</FormalSpec>
+<Implementation><![CDATA[
+	#include %occStatus
+	// Создаем экземпляр %XML.Reader
+    Set reader = ##class(%XML.Reader).%New()      
+    	// Открываем наш XML файл. В будующем сделаю путь передаваемым в метод параметром.
+    	Set status = reader.OpenFile("C:\Users\olga\Downloads\fias_delta_xml\AS_HOUSE_20160423_9d9d5199-3691-4da2-bbb8-2050b297238a.XML")
+    	If $$$ISERR(status) {do $System.Status.DisplayError(status)}
+    	// Ассоциируем XML элемент с нашим классом
+    	Do reader.Correlate("StructureStatus","Data.HOUSE")
+    
+		set counter = 0
+    	// Считываем данный с XML файла
+    	While (reader.Next(.object,.status)) 
+    	{	    	
+		s counter=counter+1
+		s obj = ##class(Data.HOUSE).%New()		
+		s obj.AOGUID=$lg(stream,1)
+		 		s obj.BUILDNUM=object.BUILDNUM
+		 		s obj.ENDDATE=object.ENDDATE
+		 		s obj.ESTSTATUS=object.ESTSTATUS
+		 		s obj.HOUSEGUID=object.HOUSEGUID
+		 		s obj.HOUSEID=object.HOUSEID
+		 		s obj.HOUSENUM=object.HOUSENUM
+		 		s obj.STATSTATUS=object.STATSTATUS
+		 		s obj.IFNSFL=object.IFNSFL
+		 		s obj.IFNSUL=object.IFNSUL
+		 		s obj.OKATO=object.OKATO
+		 		s obj.OKTMO=object.OKTMO
+		 		s obj.POSTALCODE=object.POSTALCODE
+		 		s obj.STARTDATE=object.STARTDATE
+		 		s obj.STRUCNUM=object.STRUCNUM
+		 		s obj.STRSTATUS=object.STRSTATUS
+		 		s obj.TERRIFNSFL=object.TERRIFNSFL
+		 		s obj.TERRIFNSUL=object.TERRIFNSUL
+		 		s obj.UPDATEDATE=object.UPDATEDATE
+		 		s obj.NORMDOC=object.NORMDOC
+		 		s obj.COUNTER=object.COUNTER
+		d obj.%Save()
+    	}  
+    
+	w "сохранено "_counter_" записей"  
+    // Обработчик ошибки
+    If $$$ISERR(status) {do $System.Status.DisplayError(status)}
 ]]></Implementation>
 </Method>
 
@@ -242,6 +301,12 @@ ENDDATE</Description>
 </Value>
 <Value name="20">
 <Value>NORMDOC</Value>
+</Value>
+<Value name="21">
+<Value>ESTSTATUS</Value>
+</Value>
+<Value name="22">
+<Value>STATSTATUS</Value>
 </Value>
 </Data>
 </Storage>

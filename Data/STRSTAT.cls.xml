@@ -10,14 +10,12 @@
 <Description>
 Признак строения</Description>
 <Type>%Integer</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="NAME">
 <Description>
 Наименование</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="SHORTNAME">

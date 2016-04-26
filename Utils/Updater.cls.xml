@@ -116,14 +116,14 @@
 	d ##class(Data.CENTERST).Input(dir)
 	d ##class(Data.CURENTST).Input(dir)
 	d ##class(Data.ESTSTAT).Input(dir)
-	d ##class(Data.HOUSE).Input(dir)
+	//d ##class(Data.HOUSE).Input(dir)
 	d ##class(Data.HSTSTAT).Input(dir)
 	d ##class(Data.INTVSTAT).Input(dir)
-	d ##class(Data.LANDMARK).Input(dir)
+	//d ##class(Data.LANDMARK).Input(dir)
 	d ##class(Data.NDOCTYPE).Input(dir)
-	d ##class(Data.NORMDOC).Input(dir)
+	//d ##class(Data.NORMDOC).Input(dir)
 	d ##class(Data.OPERSTAT).Input(dir)
-	d ##class(Data.SOCRBASE).Input(dir)
+	//d ##class(Data.SOCRBASE).Input(dir)
 	d ##class(Data.STRSTAT).Input(dir)
 ]]></Implementation>
 </Method>

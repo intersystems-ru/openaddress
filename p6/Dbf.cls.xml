@@ -220,17 +220,20 @@ zwrite ^||dbf
 	}
 	
 	set nzi=0 
-	for  {
-		set z=file.Read(rowLength)
+	for  {		
+		set z=file.Read(rowLength)				
 		quit:$length(z)<rowLength ; закончился файл
-		continue:$extract(z)'=" " ; признак удалённой записи
-		
+		continue:$extract(z)'=" " ; признак удалённой записи		
 		; формирование значений полей
 		set zList = "" ; строка в массив
 		set zBegin = 1
+		
 		for i=1:1:fldQty {
+			
 			set zEnd = zBegin + fldArray(i,"length") - 1 ; позиции поля
+			
 			set fldRead = $extract(z,zBegin,zEnd)
+			
 			if (fldArray(i,"type")="D") {
 				set fldRead = $translate(fldRead," ","")
 				set:fldRead?8n fldRead = $zdateh(fldRead,8) ; перевод dbf формата
@@ -242,9 +245,12 @@ zwrite ^||dbf
 			}
 			set zList = zList_$listbuild(fldRead)
 			set zBegin = zEnd+1
+			
 		}
+		
 		set nzi = nzi + 1 ; номер записи
 		set ^||dbf("row",nzi) = zList
+		
 	}
 	quit $$$OK
 ]]></Implementation>

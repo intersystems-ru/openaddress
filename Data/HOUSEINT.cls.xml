@@ -52,65 +52,54 @@ OKTMO</Description>
 <Description>
 Дата время внесения записи</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="INTSTART">
 <Description>
 Значение начала интервала</Description>
 <Type>%Integer</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="INTEND">
 <Description>
 Значение окончания интервала</Description>
 <Type>%Integer</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="HOUSEINTID">
 <Description>
 Идентификатор записи интервала домов</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="INTGUID">
 <Description>
 Глобальный уникальный идентификатор интервала домов</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="AOGUID">
 <Description>
 Guid записи родительского объекта (улицы, города, населенного пункта и т.п.)</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="STARTDATE">
 <Description>
 STARTDATE</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="ENDDATE">
 <Description>
 ENDDATE</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="INTSTATUS">
 <Description>
 Состояние дома</Description>
-<Type>Data.INTVSTAT</Type>
-<Cardinality>children</Cardinality>
-<Inverse>INTVSTATID</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Property name="NORMDOC">
@@ -123,7 +112,6 @@ ENDDATE</Description>
 <Description>
 Счетчик записей домов для КЛАДР 4</Description>
 <Type>%Integer</Type>
-<Required>1</Required>
 </Property>
 
 <Storage name="Default">
@@ -187,6 +175,9 @@ ENDDATE</Description>
 </Value>
 <Value name="18">
 <Value>NORMDOC</Value>
+</Value>
+<Value name="19">
+<Value>INTSTATUS</Value>
 </Value>
 </Data>
 </Storage>

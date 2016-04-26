@@ -10,16 +10,12 @@
 <Description>
 Наименование</Description>
 <Type>%String</Type>
-<Required>1</Required>
 </Property>
 
 <Property name="CENTERSTID">
 <Description>
 Статус актуальности ФИАС</Description>
-<Type>Data.ADDROBJ</Type>
-<Cardinality>parent</Cardinality>
-<Inverse>CENTSTATUS</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Method name="Input">

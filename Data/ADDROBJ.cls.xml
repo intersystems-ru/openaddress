@@ -177,37 +177,25 @@ OKTMO</Description>
 <Property name="ACTSTATUS">
 <Description>
 Статус актуальности адресного объекта ФИАС. Актуальный адрес на текущую дату. Обычно последняя запись об адресном объекте.</Description>
-<Type>Data.ACTSTAT</Type>
-<Cardinality>children</Cardinality>
-<Inverse>ACTSTATID</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Property name="CENTSTATUS">
 <Description>
 Статус центра</Description>
-<Type>Data.CENTERST</Type>
-<Cardinality>children</Cardinality>
-<Inverse>CENTERSTID</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Property name="OPERSTATUS">
 <Description>
 Статус действия над записью – причина появления записи</Description>
-<Type>Data.OPERSTAT</Type>
-<Cardinality>children</Cardinality>
-<Inverse>OPERSTATID</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Property name="CURRSTATUS">
 <Description>
 Статус актуальности КЛАДР 4 (последние две цифры в коде)</Description>
-<Type>Data.CURENTST</Type>
-<Cardinality>children</Cardinality>
-<Inverse>CURENTSTID</Inverse>
-<Relationship>1</Relationship>
+<Type>%String</Type>
 </Property>
 
 <Property name="STARTDATE">
@@ -398,6 +386,9 @@ OKTMO</Description>
 </Value>
 <Value name="36">
 <Value>CURRSTATUS</Value>
+</Value>
+<Value name="37">
+<Value>OPERSTATUS</Value>
 </Value>
 </Data>
 </Storage>
