@@ -53,12 +53,10 @@
 		w "Ошибка при попытке сохранить архив."
 		q 0
 	}
-	s sc = ..UnZip(dir_"fias", stream.Filename)
-	if $$$ISERR(sc) {
-		w "Ошибка при попытке распаковать архив."
-		q 0
-	}
-	s sc = ..Import(dir_"fias")
+	s sc = ..UnZip(dir_"fias/", stream.Filename)
+	
+	w !,"Начинаем импорт данных из выгруженных файлов."	
+	s sc = ..Import(dir_"fias/")
 	if $$$ISERR(sc) {
 		w "Ошибка при попытке импортирвоать данные."
 		q 0
@@ -70,7 +68,6 @@
 <Method name="GetUpdateInfo">
 <ClassMethod>1</ClassMethod>
 <Implementation><![CDATA[
-
 	s info = ##class(DownloadService.DownloadFileInfo).%New()
 	s info = ##class(DownloadService.DownloadServiceSoap).%New().GetLastDownloadFileInfo()
 	s currId = 0
@@ -110,21 +107,23 @@
 <Method name="Import">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>dir</FormalSpec>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	d ##class(Data.ACTSTAT).Input(dir)
-	d ##class(Data.ADDROBJ).Input(dir)
-	d ##class(Data.CENTERST).Input(dir)
-	d ##class(Data.CURENTST).Input(dir)
-	d ##class(Data.ESTSTAT).Input(dir)
-	//d ##class(Data.HOUSE).Input(dir)
-	d ##class(Data.HSTSTAT).Input(dir)
-	d ##class(Data.INTVSTAT).Input(dir)
-	//d ##class(Data.LANDMARK).Input(dir)
-	d ##class(Data.NDOCTYPE).Input(dir)
-	//d ##class(Data.NORMDOC).Input(dir)
-	d ##class(Data.OPERSTAT).Input(dir)
-	//d ##class(Data.SOCRBASE).Input(dir)
-	d ##class(Data.STRSTAT).Input(dir)
+	s cs = ##class(Data.ACTSTAT).Input(dir)
+	s cs = ##class(Data.ADDROBJ).Input(dir)
+	s cs = ##class(Data.CENTERST).Input(dir)
+	s cs = ##class(Data.CURENTST).Input(dir)
+	s cs = ##class(Data.ESTSTAT).Input(dir)
+	//s cs = ##class(Data.HOUSE).Input(dir)
+	s cs = ##class(Data.HSTSTAT).Input(dir)
+	s cs = ##class(Data.INTVSTAT).Input(dir)
+	//s cs = ##class(Data.LANDMARK).Input(dir)
+	s cs = ##class(Data.NDOCTYPE).Input(dir)
+	//s cs = ##class(Data.NORMDOC).Input(dir)
+	s cs = ##class(Data.OPERSTAT).Input(dir)
+	//s cs = ##class(Data.SOCRBASE).Input(dir)
+	s cs = ##class(Data.STRSTAT).Input(dir)
+	q cs
 ]]></Implementation>
 </Method>
 </Class>

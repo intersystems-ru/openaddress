@@ -23,7 +23,7 @@
 <FormalSpec>dir</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	do ##class(p6.Dbf).ReadFile(dir_"CURENTST.dbf")
+	do ##class(p6.Dbf).ReadFile(dir_"CURENTST.DBF")
 	for i=1:1:100 {
 			set stream =  ^||dbf("row",i)
 	 		s obj=##class(Data.CURENTST).%New()

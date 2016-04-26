@@ -39,7 +39,7 @@
 <FormalSpec>dir</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	do ##class(p6.Dbf).ReadFile(dir_"SOCRBASE.dbf")
+	do ##class(p6.Dbf).ReadFile(dir_"SOCRBASE.DBF")
 	for i=1:1:353 {
 			set stream =  ^||dbf("row",i)
 	 		s obj=##class(Data.SOCRBASE).%New()

@@ -23,7 +23,7 @@
 <FormalSpec>dir</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	do ##class(p6.Dbf).ReadFile(dir_"HSTSTAT.dbf")
+	do ##class(p6.Dbf).ReadFile(dir_"HSTSTAT.DBF")
 	for i=1:1:43 {
 			set stream =  ^||dbf("row",i)
 	 		s obj=##class(Data.HSTSTAT).%New()
@@ -44,8 +44,6 @@
 <IndexLocation>^Data.HSTSTATI</IndexLocation>
 <StreamLocation>^Data.HSTSTATS</StreamLocation>
 <Data name="HSTSTATDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>

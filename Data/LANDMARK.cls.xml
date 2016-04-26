@@ -107,7 +107,7 @@ ENDDATE</Description>
 <FormalSpec>dir</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	do ##class(p6.Dbf).ReadFile(dir_"LANDMARK.dbf")
+	do ##class(p6.Dbf).ReadFile(dir_"LANDMARK.DBF")
 	for i=1:1:64 {
 			set stream =  ^||dbf("row",i)
 	 		s obj=##class(Data.LANDMARK).%New()

@@ -23,7 +23,7 @@
 <FormalSpec>dir</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	do ##class(p6.Dbf).ReadFile(dir_"NDOCTYPE.dbf")
+	do ##class(p6.Dbf).ReadFile(dir_"NDOCTYPE.DBF")
 	for i=1:1:18 {
 			set stream =  ^||dbf("row",i)
 	 		s obj=##class(Data.NDOCTYPE).%New()
@@ -44,8 +44,6 @@
 <IndexLocation>^Data.NDOCTYPEI</IndexLocation>
 <StreamLocation>^Data.NDOCTYPES</StreamLocation>
 <Data name="NDOCTYPEDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>

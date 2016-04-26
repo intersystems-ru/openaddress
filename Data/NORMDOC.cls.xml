@@ -58,7 +58,7 @@
 	for j=1:1:99 {
 		s num = ""
 		if $l(j) = 1 s num = "0"_j
-		do ##class(p6.Dbf).ReadFile(dir_"NORMDOC"_num_".dbf")
+		do ##class(p6.Dbf).ReadFile(dir_"NORMDOC"_num_".DBF")
 		for i=1:1:($listlength(^||dbf("header"))) {
 				set stream =  ^||dbf("row",i)
 		 		s obj=##class(Data.NORMDOC).%New()

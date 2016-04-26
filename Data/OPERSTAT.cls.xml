@@ -23,7 +23,7 @@
 <FormalSpec>dir</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	do ##class(p6.Dbf).ReadFile(dir_"OPERSTAT.dbf")
+	do ##class(p6.Dbf).ReadFile(dir_"OPERSTAT.DBF")
 	for i=1:1:17 {
 			set stream =  ^||dbf("row",i)
 	 		s obj=##class(Data.OPERSTAT).%New()
@@ -44,8 +44,6 @@
 <IndexLocation>^Data.OPERSTATI</IndexLocation>
 <StreamLocation>^Data.OPERSTATS</StreamLocation>
 <Data name="OPERSTATDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
 <Value name="1">
 <Value>%%CLASSNAME</Value>
 </Value>
